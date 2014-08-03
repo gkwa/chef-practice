@@ -36,12 +36,16 @@ rm pacman*.tar.gz
 knife cookbook site download freebsd
 tar zxf freebsd*
 rm freebsd*.tar.gz
+knife cookbook site download mysql 4.1.2
+tar zxf mysql*
+rm mysql-*.tar.gz
 
 ##############################
 
 cat << __EOT__ >>/home/ubuntu/chef-repo/cookbooks/phpapp/metadata.rb
 
 depends "apache2", "2.2"
+depends "mysql", "4.1.2"
 __EOT__
 
 ##############################
@@ -49,6 +53,8 @@ __EOT__
 cat << __EOT__ >>/home/ubuntu/chef-repo/cookbooks/phpapp/recipes/default.rb
 
 include_recipe "apache2"
+include_recipe "mysql::client"
+include_recipe "mysql::server"
 
 apache_site "default" do
   enable true
