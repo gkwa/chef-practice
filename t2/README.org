@@ -1,0 +1,35 @@
+* Using ID in security group reference fails, but reference by name works
+
+https://github.com/hashicorp/terraform/issues/575#issuecomment-64311829
+
+This fails:
+security_groups = ["${aws_security_group.cheftest.id}"]
+
+but this is ok:
+security_groups = ["${aws_security_group.cheftest.name}"]
+
+** log
+
+[demo@demos-MacBook-Pro:~/pdev/chef-practice/t2(master)]$ g dc --reverse main.tf
+diff --git a/t2/main.tf b/t2/main.tf
+index 1e9044e..bc6c161 100644
+--- a/t2/main.tf
++++ b/t2/main.tf
+@@ -24,7 +24,7 @@ resource "aws_instance" "chef" {
+   ami = "${lookup(var.amis, var.region)}"
+   instance_type = "t1.micro"
+   key_name = "ephemeral-test"
+-  security_groups = ["${aws_security_group.cheftest.name}"]
++  security_groups = ["${aws_security_group.cheftest.id}"]
+
+   tags {
+     Name = "cheftest"
+[demo@demos-MacBook-Pro:~/pdev/chef-practice/t2(master)]$ #
+
+* Summary
+
+#+BEGIN_SRC
+terraform plan -var-file=secrets.tfvars
+terraform apply -var-file=secrets.tfvars
+terraform destroy -var-file=secrets.tfvars
+#+END_SRC
