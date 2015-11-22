@@ -24,23 +24,10 @@ resource "aws_instance" "chef" {
   ami = "${lookup(var.amis, var.region)}"
   instance_type = "t1.micro"
   key_name = "ephemeral-test"
+  volume_size = 100
   security_groups = ["${aws_security_group.cheftest.name}"]
 
   tags {
     Name = "cheftest"
   }
-}
-
-resource "aws_ebs_volume" "chef" {
-  availability_zone = "us-west-2a"
-  size = 100
-  tags {
-    Name = "cheftest"
-  }
-}
-
-resource "aws_volume_attachment" "ebs_att" {
-  device_name = "/dev/sdh"
-  volume_id = "${aws_ebs_volume.chef.id}"
-  instance_id = "${aws_instance.chef.id}"
 }
