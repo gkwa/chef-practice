@@ -21,7 +21,7 @@ resource "aws_security_group" "chef" {
 
 resource "aws_instance" "chef" {
   ami = "${lookup(var.amis, var.region)}"
-  instance_type = "t1.micro"
+  instance_type = "m3.medium"
   key_name = "ephemeral-test"
   security_groups = ["${aws_security_group.chef.name}"]
   root_block_device {
