@@ -39,9 +39,9 @@ resource "aws_instance" "chef" {
 	  "sudo rm /var/lib/apt/lists/* -vf",
 	  "sudo apt-get clean",
 	  "sudo apt-get autoremove",
-	  "sudo apt-get update",
+	  "sudo apt-get -qq update",
 
-	  "sudo apt-get install git",
+	  "sudo apt-get -qq install --assume-yes git",
 
 	  /* Install Chef server and packages */
 	  "cd /tmp",
