@@ -1,14 +1,24 @@
-*
+* summary for how to get started with terraform
 
++ you need to create secrets.tfvars since its not version conrolled
 + determine the region you're going to work in
 + create new key.  Here's url for us-west-2 region: https://us-west-2.console.aws.amazon.com/ec2/v2/home?region=us-west-2#KeyPairs:sort=keyName
 + replace =key_name = "ephemeral-test"= with your key name
++ run terraform
+#+BEGIN_SRC
+terraform destroy -force -var-file=secrets.tfvars
+terraform apply -var-file=secrets.tfvars
+#+END_SRC
 
 *
 
-**
+** quickly check whether dns record was added
 
+We have multiple zones with same name, so use zone id instead of name.
+
+#+BEGIN_SRC
 /Users/demo/Downloads/cli53-mac-amd64 export -f ZYM2WVE2N8MU5 | wc -l
+#+END_SRC
 
 ** provisioning failing on sudo password request
 https://github.com/hashicorp/terraform/issues/492#issuecomment-59984941
