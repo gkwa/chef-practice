@@ -1,4 +1,4 @@
-* summary for how to get started with terraform
+* Summary for how to get started with terraform
 
 + you need to create secrets.tfvars since its not version conrolled
 + determine the region you're going to work in
@@ -7,11 +7,26 @@
 + run terraform
 #+BEGIN_SRC
 terraform destroy -force -var-file=secrets.tfvars
+time terraform apply -var-file=secrets.tfvars
+#+END_SRC
++ continue here manually
+https://docs.chef.io/release/server_12-2/install_server.html#standalone
+#+BEGIN_SRC
+sudo chef-server-ctl reconfigure # done in main.tf
+sudo chef-server-ctl user-create mtm taylor monacelli taylor.monacelli@streambox.com password --filename mtm.pem
+sudo chef-server-ctl org-create streambox "Streambox Inc" --association_user mtm --filename streambox-validator.pem
+chef-server-ctl install opscode-manage
+#+END_SRC
+
+** Command summary
+
+#+BEGIN_SRC
+terraform plan -var-file=secrets.tfvars
 terraform apply -var-file=secrets.tfvars
+terraform destroy -var-file=secrets.tfvars
 #+END_SRC
 
 *
-
 ** quickly check whether dns record was added
 
 We have multiple zones with same name, so use zone id instead of name.
@@ -48,8 +63,74 @@ aws_instance.chef (local-exec): Enter proxy password for user 'vh':
 * Terraform provisioning
 
 https://terraform.io/intro/getting-started/provision.html
+https://terraform.io/docs/provisioners
 
 curl -o chef_install.sh https://github.com/TaylorMonacelli/chef-practice/chef_install.sh
+
+** TODO try to get rid of running provisioning in terminal so I can go do other stuff
+
+Running 'local-exec'
+
+#+BEGIN_SRC hcl
+  provisioner "remote-exec" {
+	inline = [
+	  "cd /tmp",
+	  "curl --silent -o chef_server.rpm http://taylors-bucket.s3.amazonaws.com/chef-server-core-12.3.0-1.el5.x86_64.rpm",
+	  "sudo rpm -Uh chef_server.rpm",
+	  "sudo chef-server-ctl reconfigure"
+	]
+	connection {
+      user = "fedora"
+      key_file = "~/.ssh/ephemeral-test.pem"
+    }
+  }
+#+END_SRC
+
+** time required to provision on m3.medium: 14 minutes
+
+real    14m31.463s
+aws_instance.chef (remote-exec): Chef Client finished, 417/482 resources updated in 07 minutes 52 seconds
+
+aws_instance.chef (remote-exec): Recipe: private-chef::nginx
+aws_instance.chef (remote-exec):   * execute[restart_nginx_log_service] action run
+
+aws_instance.chef (remote-exec):     - execute /opt/opscode/embedded/bin/sv restart /opt/opscode/sv/nginx/log
+aws_instance.chef (remote-exec):
+aws_instance.chef (remote-exec):
+aws_instance.chef (remote-exec): Running handlers:
+aws_instance.chef (remote-exec): Running handlers complete
+
+aws_instance.chef (remote-exec):
+aws_instance.chef (remote-exec): Deprecated features used!
+aws_instance.chef (remote-exec):   Cannot specify both default and name_property together on property path of resource yum_globalconfig. Only one (name_property) will be obeyed. In Chef 13, this will bec$
+aws_instance.chef (remote-exec):     - /opt/opscode/embedded/cookbooks/cache/cookbooks/yum/resources/globalconfig.rb:76:in `class_from_file'
+aws_instance.chef (remote-exec):
+aws_instance.chef (remote-exec): Chef Client finished, 417/482 resources updated in 07 minutes 52 seconds
+aws_instance.chef (remote-exec): Chef Server Reconfigured!
+aws_instance.chef: Creation complete
+aws_route53_record.chef: Modifying...
+  records.1045054549: "54.188.119.82" => ""
+  records.2746339273: "" => "54.190.99.78"
+aws_route53_record.chef: Modifications complete
+
+Apply complete! Resources: 1 added, 1 changed, 1 destroyed.
+
+The state of your infrastructure has been saved to the path
+below. This state is required to modify and destroy your
+infrastructure, so keep it safe. To inspect the complete state
+use the `terraform show` command.
+
+State path: terraform.tfstate
+
+Outputs:
+
+  sshdns = ssh -i ~/.ssh/ephemeral-test.pem fedora@chef.streambox.com
+  sship  = ssh -i ~/.ssh/ephemeral-test.pem fedora@54.190.99.78
+
+real    14m31.463s
+user    0m6.201s
+sys 0m3.856s
+[demo@demos-MBP:~/pdev/chef-practice/t2(master)]$ [demo@demos-MBP:~/pdev/chef-practice/t2(master)]$ [demo@demos-MBP:~/.ssh(master)]$
 
 * Install chef server
 
@@ -57,6 +138,72 @@ sudo -Hi
 wget http://taylors-bucket.s3.amazonaws.com/chef-server-core-12.3.0-1.el5.x86_64.rpm
 rpm -Uvh chef-server-core-12.3.0-1.el5.x86_64.rpm
 
+* Oops: chef-server-ctl install opscode-manage fails
+
+Here's the list of supported platforms
+https://docs.chef.io/supported_platforms.html
+
+Try switching from fedora to centOS
+
+chef-server-ctl install opscode-manage
+
+https://docs.chef.io/release/server_12-2/install_server.html#standalone
+
+#+BEGIN_SRC
+[root@ip-10-220-159-202 ~]# chef-server-ctl install opscode-manage
+Starting Chef Client, version 12.5.1
+resolving cookbooks for run list: ["private-chef::add_ons_wrapper"]
+Synchronizing Cookbooks:
+  - chef-sugar (3.1.1)
+  - apt (2.7.0)
+  - yum (3.6.0)
+  - runit (1.6.0)
+  - enterprise (0.5.1)
+  - openssl (4.4.0)
+  - private-chef (0.1.0)
+  - packagecloud (0.0.18)
+Compiling Cookbooks...
+
+================================================================================
+Recipe Compile Error in /opt/opscode/embedded/cookbooks/cache/cookbooks/private-chef/recipes/add_ons_wrapper.rb
+================================================================================
+
+RuntimeError
+------------
+I don't know how to install addons for platform family: fedora
+
+Cookbook Trace:
+---------------
+  /opt/opscode/embedded/cookbooks/cache/cookbooks/private-chef/recipes/add_ons_repository.rb:47:in `from_file'
+  /opt/opscode/embedded/cookbooks/cache/cookbooks/private-chef/recipes/add_ons_remote.rb:13:in `from_file'
+  /opt/opscode/embedded/cookbooks/cache/cookbooks/private-chef/recipes/add_ons_wrapper.rb:47:in `from_file'
+
+Relevant File Content:
+----------------------
+/opt/opscode/embedded/cookbooks/cache/cookbooks/private-chef/recipes/add_ons_repository.rb:
+
+ 40:      enabled false
+ 41:      action :create
+ 42:    end
+ 43:
+ 44:  else
+ 45:    # TODO: probably don't actually want to fail out?  Say, on any platform where
+ 46:    # this would have to be done manually.
+ 47>>   raise "I don't know how to install addons for platform family: #{node['platform_family']}"
+ 48:  end
+ 49:
+
+
+Running handlers:
+  - #<Class:0x000000039a3e38>::AddonInstallHandler
+Running handlers complete
+Chef Client failed. 0 resources updated in 18 seconds
+[2015-11-23T06:15:12+00:00] FATAL: Stacktrace dumped to /opt/opscode/embedded/cookbooks/cache/chef-stacktrace.out
+[2015-11-23T06:15:12+00:00] FATAL: RuntimeError: I don't know how to install addons for platform family: fedora
+[root@ip-10-220-159-202 ~]#
+#+END_SRC
+
+* TODO find aws ec2 command to find relevent t1.micro images for all regions
 * TODO find a way to automate the key generation, now I'm hard coding it
 
 I generated this key using amazon webui:
@@ -120,10 +267,3 @@ index 1e9044e..bc6c161 100644
      Name = "cheftest"
 [demo@demos-MacBook-Pro:~/pdev/chef-practice/t2(master)]$ #
 
-* Summary
-
-#+BEGIN_SRC
-terraform plan -var-file=secrets.tfvars
-terraform apply -var-file=secrets.tfvars
-terraform destroy -var-file=secrets.tfvars
-#+END_SRC

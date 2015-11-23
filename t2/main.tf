@@ -24,6 +24,7 @@ resource "aws_instance" "chef" {
   instance_type = "m3.medium"
   key_name = "ephemeral-test"
   security_groups = ["${aws_security_group.chef.name}"]
+  monitoring = true
   root_block_device {
 	volume_size = "100"
   }
@@ -33,12 +34,43 @@ resource "aws_instance" "chef" {
 
   provisioner "remote-exec" {
 	inline = [
+
+	  /* Clean, update machine */
+	  "sudo rm /var/lib/apt/lists/* -vf",
+	  "sudo apt-get clean",
+	  "sudo apt-get autoremove",
+	  "sudo apt-get update",
+
+	  "sudo apt-get install git",
+
+	  /* Install Chef server and packages */
 	  "cd /tmp",
-	  "curl --silent -o chef_server.rpm http://taylors-bucket.s3.amazonaws.com/chef-server-core-12.3.0-1.el5.x86_64.rpm",
-	  "sudo rpm -Uh chef_server.rpm"
+	  "curl --silent -o chef_server.deb http://taylors-bucket.s3.amazonaws.com/chef-server-core_12.3.0-1_amd64.deb",
+	  "sudo dpkg -i chef_server.deb",
+	  "sudo chef-server-ctl reconfigure",
+
+	  /* Chef Manage */
+	  "sudo chef-server-ctl install opscode-manage",
+	  "sudo chef-server-ctl reconfigure",
+	  "sudo opscode-manage-ctl reconfigure",
+
+	  /* Chef Push Jobs */
+	  "sudo chef-server-ctl install opscode-push-jobs-server",
+	  "sudo chef-server-ctl reconfigure",
+	  "sudo opscode-push-jobs-server-ctl reconfigure",
+
+	  /* Chef replication */
+	  "sudo chef-server-ctl install chef-sync",
+	  "sudo chef-server-ctl reconfigure",
+	  "sudo chef-sync-ctl reconfigure",
+
+	  /* Reporting */
+	  "sudo chef-server-ctl install opscode-reporting",
+	  "sudo chef-server-ctl reconfigure",
+	  "sudo opscode-reporting-ctl reconfigure"
 	]
 	connection {
-      user = "fedora"
+      user = "ubuntu"
       key_file = "~/.ssh/ephemeral-test.pem"
     }
   }
@@ -53,8 +85,8 @@ resource "aws_route53_record" "chef" {
 }
 
 output "sship" {
-  value = "ssh -i ~/.ssh/ephemeral-test.pem fedora@${aws_instance.chef.public_ip}"
+  value = "ssh -i ~/.ssh/ephemeral-test.pem ubuntu@${aws_instance.chef.public_ip}"
 }
 output "sshdns" {
-  value = "ssh -i ~/.ssh/ephemeral-test.pem fedora@${aws_route53_record.chef.name}"
+  value = "ssh -i ~/.ssh/ephemeral-test.pem ubuntu@${aws_route53_record.chef.name}"
 }

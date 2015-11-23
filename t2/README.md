@@ -2,20 +2,21 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [summary for how to get started with terraform](#summary-for-how-to-get-started-with-terraform)
+- [Summary for how to get started with terraform](#summary-for-how-to-get-started-with-terraform)
+  - [Command summary](#command-summary)
   - [quickly check whether dns record was added](#quickly-check-whether-dns-record-was-added)
   - [provisioning failing on sudo password request](#provisioning-failing-on-sudo-password-request)
 - [Terraform provisioning](#terraform-provisioning)
 - [Install chef server](#install-chef-server)
+- [TODO find aws ec2 command to find relevent t1.micro images for all regions](#todo-find-aws-ec2-command-to-find-relevent-t1micro-images-for-all-regions)
 - [TODO find a way to automate the key generation, now I'm hard coding it](#todo-find-a-way-to-automate-the-key-generation-now-im-hard-coding-it)
 - [Chef server getting started](#chef-server-getting-started)
 - [Using ID in security group reference fails, but reference by name works](#using-id-in-security-group-reference-fails-but-reference-by-name-works)
   - [log](#log)
-- [Summary](#summary)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-summary for how to get started with terraform
+Summary for how to get started with terraform
 =============================================
 
 -   you need to create secrets.tfvars since its not version conrolled
@@ -28,7 +29,21 @@ summary for how to get started with terraform
 <!-- -->
 
     terraform destroy -force -var-file=secrets.tfvars
+    time terraform apply -var-file=secrets.tfvars
+
+-   continue here manually
+
+<https://docs.chef.io/release/server_12-2/install_server.html#standalone>
+
+    sudo chef-server-ctl reconfigure
+    sudo chef-server-ctl user-create mtm taylor monacelli taylor.monacelli@streambox.com password --filename FILE_NAME"
+
+Command summary
+---------------
+
+    terraform plan -var-file=secrets.tfvars
     terraform apply -var-file=secrets.tfvars
+    terraform destroy -var-file=secrets.tfvars
 
 quickly check whether dns record was added
 ------------------------------------------
@@ -80,6 +95,9 @@ sudo -Hi wget
 <http://taylors-bucket.s3.amazonaws.com/chef-server-core-12.3.0-1.el5.x86_64.rpm>
 rpm -Uvh chef-server-core-12.3.0-1.el5.x86~64~.rpm
 
+TODO find aws ec2 command to find relevent t1.micro images for all regions
+==========================================================================
+
 TODO find a way to automate the key generation, now I'm hard coding it
 ======================================================================
 
@@ -130,10 +148,3 @@ var.region)}" instance~type~ = "t1.micro" key~name~ = "ephemeral-test"
     tags { Name = "cheftest"
 
 \[demo@demos-MacBook-Pro:\~/pdev/chef-practice/t2(master)\]\$ \#
-
-Summary
-=======
-
-    terraform plan -var-file=secrets.tfvars
-    terraform apply -var-file=secrets.tfvars
-    terraform destroy -var-file=secrets.tfvars
