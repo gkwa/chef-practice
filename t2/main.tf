@@ -30,6 +30,18 @@ resource "aws_instance" "chef" {
   tags {
 	Name = "chef"
   }
+
+  provisioner "remote-exec" {
+	inline = [
+	  "cd /tmp",
+	  "curl --silent -o chef_server.rpm http://taylors-bucket.s3.amazonaws.com/chef-server-core-12.3.0-1.el5.x86_64.rpm",
+	  "sudo rpm -Uh chef_server.rpm"
+	]
+	connection {
+      user = "fedora"
+      key_file = "~/.ssh/ephemeral-test.pem"
+    }
+  }
 }
 
 resource "aws_route53_record" "chef" {
@@ -38,4 +50,11 @@ resource "aws_route53_record" "chef" {
   name = "chef.streambox.com"
   type = "A"
   records = ["${aws_instance.chef.public_ip}"]
+}
+
+output "sship" {
+  value = "ssh -i ~/.ssh/ephemeral-test.pem fedora@${aws_instance.chef.public_ip}"
+}
+output "sshdns" {
+  value = "ssh -i ~/.ssh/ephemeral-test.pem fedora@${aws_route53_record.chef.name}"
 }
