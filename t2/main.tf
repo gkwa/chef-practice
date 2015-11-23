@@ -34,53 +34,6 @@ resource "aws_instance" "chef" {
 
 
 
-resource "aws_route53_zone" "zone-test" {
-  name = "streambox.com"
-}
-
-resource "aws_route53_record" "chef" {
-  zone_id = "${aws_route53_zone.zone-test.zone_id}"
-  ttl = "60"
-  name = "chef.${aws_route53_zone.zone-test.name}"     # <---- reference the aws_route53_zone
-  type = "A"
-  records = ["${aws_instance.chef.public_ip}"]
-}
-resource "aws_route53_record" "chef3" {
-  zone_id = "${aws_route53_zone.zone-test.zone_id}"
-  ttl = "60"
-  name = "chef3.${aws_route53_zone.zone-test.name}"     # <---- reference the aws_route53_zone
-  type = "A"
-  records = ["${aws_instance.chef.public_ip}"]
-}
-resource "aws_route53_record" "chef4" {
-  zone_id = "${aws_route53_zone.zone-test.zone_id}"
-  ttl = "60"
-  name = "chef4.${aws_route53_zone.zone-test.name}"     # <---- reference the aws_route53_zone
-  type = "A"
-  records = ["${aws_instance.chef.public_ip}"]
-}
-
-
-
-
-
-
-
-
-resource "aws_route53_zone" "zone-test2" {
-  name = "streambox.com"
-}
-
-resource "aws_route53_record" "chef2" {
-  zone_id = "${aws_route53_zone.zone-test2.zone_id}"
-  ttl = "60"
-  name = "chef.${aws_route53_zone.zone-test2.name}"     # <---- reference the aws_route53_zone
-  type = "A"
-  records = ["${aws_instance.chef.public_ip}"]
-}
-
-
-
 
 
 
@@ -203,4 +156,4 @@ resource "aws_route53_record" "chef2" {
 #   ttl = "300"
 #   records = ["${aws_instance.streambox.ipv4_address}"]
 # }
-# 
+#
