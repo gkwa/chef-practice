@@ -34,37 +34,93 @@ resource "aws_instance" "chef" {
 
 
 
-
-
-
-
-resource "aws_route53_zone" "streambox-com" {
-    name = "streambox.com"
-#     lifecycle {
-#         prevent_destroy = true
-#     }
+resource "aws_route53_zone" "zone-test" {
+  name = "streambox.com"
 }
 
-resource "aws_route53_record" "streambox-com_a" {
-    zone_id = "${aws_route53_zone.streambox-com.zone_id}"
-    name = "streambox.com"
-    type = "A"
-    ttl = "300"
-    records = ["50.18.251.59"]
+resource "aws_route53_record" "chef" {
+  zone_id = "${aws_route53_zone.zone-test.zone_id}"
+  ttl = "60"
+  name = "chef.${aws_route53_zone.zone-test.name}"     # <---- reference the aws_route53_zone
+  type = "A"
+  records = ["${aws_instance.chef.public_ip}"]
+}
+resource "aws_route53_record" "chef3" {
+  zone_id = "${aws_route53_zone.zone-test.zone_id}"
+  ttl = "60"
+  name = "chef3.${aws_route53_zone.zone-test.name}"     # <---- reference the aws_route53_zone
+  type = "A"
+  records = ["${aws_instance.chef.public_ip}"]
+}
+resource "aws_route53_record" "chef4" {
+  zone_id = "${aws_route53_zone.zone-test.zone_id}"
+  ttl = "60"
+  name = "chef4.${aws_route53_zone.zone-test.name}"     # <---- reference the aws_route53_zone
+  type = "A"
+  records = ["${aws_instance.chef.public_ip}"]
 }
 
-resource "aws_route53_record" "streambox-com_cname_chef" {
-    zone_id = "${aws_route53_zone.streambox-com.zone_id}"
-    name = "chef"
-    type = "CNAME"
-    ttl = "300"
-   records = ["${aws_instance.chef.public_dns}"]
-#    records = ["chef.streambox.com"]
+
+
+
+
+
+
+
+resource "aws_route53_zone" "zone-test2" {
+  name = "streambox.com"
+}
+
+resource "aws_route53_record" "chef2" {
+  zone_id = "${aws_route53_zone.zone-test2.zone_id}"
+  ttl = "60"
+  name = "chef.${aws_route53_zone.zone-test2.name}"     # <---- reference the aws_route53_zone
+  type = "A"
+  records = ["${aws_instance.chef.public_ip}"]
 }
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+# this looks really good, but cname doesn't resolve:
+#
+# resource "aws_route53_zone" "streambox-com" {
+#     name = "streambox.com"
+# #     lifecycle {
+# #         prevent_destroy = true
+# #     }
+# }
+#
+# resource "aws_route53_record" "streambox-com_a" {
+#     zone_id = "${aws_route53_zone.streambox-com.zone_id}"
+#     name = "streambox.com"
+#     type = "A"
+#     ttl = "300"
+#     records = ["50.18.251.59"]
+# }
+#
+# resource "aws_route53_record" "streambox-com_cname_chef" {
+#     zone_id = "${aws_route53_zone.streambox-com.zone_id}"
+#     name = "chef"
+#     type = "CNAME"
+#     ttl = "300"
+#    records = ["${aws_instance.chef.public_dns}"]
+# #    records = ["chef.streambox.com"]
+# }
+#
+#
+#
+#
 
 
 
