@@ -71,7 +71,7 @@ resource "aws_instance" "chef" {
 	]
 	connection {
       user = "ubuntu"
-      key_file = "ephemeral-test.pem"
+      key_file = "~/.ssh/ephemeral-test.pem"
     }
   }
 }
