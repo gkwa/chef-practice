@@ -268,7 +268,6 @@ index 1e9044e..bc6c161 100644
 [demo@demos-MacBook-Pro:~/pdev/chef-practice/t2(master)]$ #
 
 * Troubleshooting
-
 ** aws_instance.chef (remote-exec): dpkg-deb: error: `chef_server.deb' is not a debian format archive
 
 opscode-omnibus-packages chef server
@@ -477,9 +476,19 @@ sys	0m0.341s
 [demo@demos-MBP:/tmp]$ 
 #+END_SRC
 
-** terraform can't force destroy, or how can I get terraform to destroy group first
+** DONE terraform can't force destroy, or how can I get terraform to destroy group first
+   CLOSED: [2015-12-04 Fri 22:33]
 
-For this case (below), I'd want terraform to really force destory the
+This was fixed in Terraform v0.6.8
+
+
+
+
+When provisioning step fails, terraform is left in bad state where it
+doesn't know the instance is still running, but it does know the
+instance security group is present.
+
+For this case, I'd want terraform to really force destory the
 security group.  Why can't it?
 
 Here's what I do that will cause the terraform create/delete/create flow

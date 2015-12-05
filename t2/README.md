@@ -18,7 +18,7 @@
   - [log](#log)
 - [Troubleshooting](#troubleshooting)
   - [aws~instance~.chef (remote-exec): dpkg-deb: error: \`chef~server~.deb' is not a debian format archive](#awsinstancechef-remote-exec-dpkg-deb-error-%5Cchefserverdeb-is-not-a-debian-format-archive)
-  - [terraform can't force destroy, or how can I get terraform to destroy group first](#terraform-cant-force-destroy-or-how-can-i-get-terraform-to-destroy-group-first)
+  - [DONE terraform can't force destroy, or how can I get terraform to destroy group first](#done-terraform-cant-force-destroy-or-how-can-i-get-terraform-to-destroy-group-first)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -501,11 +501,19 @@ is not a debian format archive
       C-c C-c
     [demo@demos-MBP:/tmp]$ 
 
-terraform can't force destroy, or how can I get terraform to destroy group first
---------------------------------------------------------------------------------
+DONE terraform can't force destroy, or how can I get terraform to destroy group first
+-------------------------------------------------------------------------------------
 
-For this case (below), I'd want terraform to really force destory the
-security group. Why can't it?
+CLOSED: \[2015-12-04 Fri 22:33\]
+
+This was fixed in Terraform v0.6.8
+
+When provisioning step fails, terraform is left in bad state where it
+doesn't know the instance is still running, but it does know the
+instance security group is present.
+
+For this case, I'd want terraform to really force destory the security
+group. Why can't it?
 
 Here's what I do that will cause the terraform create/delete/create flow
 to break:
