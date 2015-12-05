@@ -203,6 +203,19 @@ Chef Client failed. 0 resources updated in 18 seconds
 [root@ip-10-220-159-202 ~]#
 #+END_SRC
 
+* TODO local-exec versus remote-exec?
+
+Can we provision with sudo for local-exec as well as remote-exec?
+
+terraform local-exec sudo
+
+* TODO can we change the order of deployment steps?
+
+I'd like remote-exec to run after machine has dns name.  Can we change order?
+
+terraform remote-exec order change
+terraform remote-exec order
+
 * TODO find aws ec2 command to find relevent t1.micro images for all regions
 * TODO find a way to automate the key generation, now I'm hard coding it
 

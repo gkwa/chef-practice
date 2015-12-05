@@ -11,6 +11,8 @@
   - [time required to provision on m3.medium: 14 minutes](#time-required-to-provision-on-m3medium-14-minutes)
 - [Install chef server](#install-chef-server)
 - [Oops: chef-server-ctl install opscode-manage fails](#oops-chef-server-ctl-install-opscode-manage-fails)
+- [TODO local-exec versus remote-exec?](#todo-local-exec-versus-remote-exec)
+- [TODO can we change the order of deployment steps?](#todo-can-we-change-the-order-of-deployment-steps)
 - [TODO find aws ec2 command to find relevent t1.micro images for all regions](#todo-find-aws-ec2-command-to-find-relevent-t1micro-images-for-all-regions)
 - [TODO find a way to automate the key generation, now I'm hard coding it](#todo-find-a-way-to-automate-the-key-generation-now-im-hard-coding-it)
 - [Chef server getting started](#chef-server-getting-started)
@@ -237,6 +239,21 @@ chef-server-ctl install opscode-manage
     [2015-11-23T06:15:12+00:00] FATAL: Stacktrace dumped to /opt/opscode/embedded/cookbooks/cache/chef-stacktrace.out
     [2015-11-23T06:15:12+00:00] FATAL: RuntimeError: I don't know how to install addons for platform family: fedora
     [root@ip-10-220-159-202 ~]#
+
+TODO local-exec versus remote-exec?
+===================================
+
+Can we provision with sudo for local-exec as well as remote-exec?
+
+terraform local-exec sudo
+
+TODO can we change the order of deployment steps?
+=================================================
+
+I'd like remote-exec to run after machine has dns name. Can we change
+order?
+
+terraform remote-exec order change terraform remote-exec order
 
 TODO find aws ec2 command to find relevent t1.micro images for all regions
 ==========================================================================
