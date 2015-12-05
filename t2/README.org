@@ -239,6 +239,11 @@ resource "aws_instance" "chef" {
   }
 }
 
+* Can remote-exec go in separate file?
+
+Yes, here's how
+https://terraform.io/docs/provisioners/remote-exec.html
+
 * Chef server getting started
 
 **

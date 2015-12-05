@@ -15,6 +15,7 @@
 - [TODO can we change the order of deployment steps?](#todo-can-we-change-the-order-of-deployment-steps)
 - [TODO find aws ec2 command to find relevent t1.micro images for all regions](#todo-find-aws-ec2-command-to-find-relevent-t1micro-images-for-all-regions)
 - [TODO find a way to automate the key generation, now I'm hard coding it](#todo-find-a-way-to-automate-the-key-generation-now-im-hard-coding-it)
+- [Can remote-exec go in separate file?](#can-remote-exec-go-in-separate-file)
 - [Chef server getting started](#chef-server-getting-started)
 - [Using ID in security group reference fails, but reference by name works](#using-id-in-security-group-reference-fails-but-reference-by-name-works)
   - [log](#log)
@@ -269,6 +270,12 @@ resource "aws~instance~" "chef" { ami = "\${lookup(var.amis,
 var.region)}" instance~type~ = "t1.micro" key~name~ = "ephemeral-test"
 security~groups~ = \["\${aws~securitygroup~.chef.name}"\]
 root~blockdevice~ { volume~size~ = "100" } tags { Name = "chef" } }
+
+Can remote-exec go in separate file?
+====================================
+
+Yes, here's how
+<https://terraform.io/docs/provisioners/remote-exec.html>
 
 Chef server getting started
 ===========================
