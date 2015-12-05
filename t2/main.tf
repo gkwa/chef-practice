@@ -46,6 +46,7 @@ resource "aws_instance" "chef" {
 	  /* Install Chef server and packages */
 	  "cd /tmp",
 	  "curl --silent -o chef_server.deb https://opscode-omnibus-packages.s3.amazonaws.com/ubuntu/14.04/x86_64/chef_12.5.1-1_amd64.deb",
+	  "curl --silent -o chef_server.deb http://taylors-bucket.s3.amazonaws.com/chef-server-core_12.3.0-1_amd64.deb",
 	  "sudo dpkg -i chef_server.deb",
 	  "sudo chef-server-ctl reconfigure",
 
