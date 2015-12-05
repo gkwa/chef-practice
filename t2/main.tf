@@ -12,21 +12,6 @@ resource "aws_route53_record" "chef" {
   records = ["${aws_instance.chef.public_ip}"]
 }
 
-resource "aws_security_group" "chef" {
-  name = "chef"
-  description = "Allow ssh inbound traffic from everywhere"
-
-  ingress {
-	from_port = 22
-	to_port = 22
-	protocol = "tcp"
-	cidr_blocks = ["0.0.0.0/0"]
-  }
-  tags {
-	Name = "chef"
-  }
-}
-
 resource "aws_instance" "chef" {
   ami = "${lookup(var.amis, var.region)}"
   instance_type = "m3.medium"
@@ -83,6 +68,22 @@ resource "aws_instance" "chef" {
     }
   }
 }
+
+resource "aws_security_group" "chef" {
+  name = "chef"
+  description = "Allow ssh inbound traffic from everywhere"
+
+  ingress {
+	from_port = 22
+	to_port = 22
+	protocol = "tcp"
+	cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags {
+	Name = "chef"
+  }
+}
+
 
 output "sship" {
   value = "ssh -i ~/.ssh/ephemeral-test.pem ubuntu@${aws_instance.chef.public_ip}"
