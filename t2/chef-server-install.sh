@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -x
+
 # Clean, update machine
 sudo rm /var/lib/apt/lists/* -vf
 sudo apt-get clean
