@@ -4,6 +4,14 @@ provider "aws" {
   region = "${var.region}"
 }
 
+resource "aws_route53_record" "chef" {
+  zone_id = "${var.streambox_zone}"
+  ttl = "60"
+  name = "chef.streambox.com"
+  type = "A"
+  records = ["${aws_instance.chef.public_ip}"]
+}
+
 resource "aws_security_group" "chef" {
   name = "chef"
   description = "Allow ssh inbound traffic from everywhere"
@@ -74,14 +82,6 @@ resource "aws_instance" "chef" {
       key_file = "~/.ssh/ephemeral-test.pem"
     }
   }
-}
-
-resource "aws_route53_record" "chef" {
-  zone_id = "${var.streambox_zone}"
-  ttl = "60"
-  name = "chef.streambox.com"
-  type = "A"
-  records = ["${aws_instance.chef.public_ip}"]
 }
 
 output "sship" {
