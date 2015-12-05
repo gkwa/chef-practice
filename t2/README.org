@@ -244,6 +244,81 @@ resource "aws_instance" "chef" {
 Yes, here's how
 https://terraform.io/docs/provisioners/remote-exec.html
 
+* Note: You didn't specify an "-out" parameter to save this plan
+
+https://www.terraform.io/docs/commands/plan.html
+
+Maybe this:
+Note: You didn't specify an "-out" parameter to save this plan
+"apply" is called, Terraform can't guarantee this is what will execute.
+
+is an alert that we can improve reliability.
+
+terraform Note: You didn't specify an out parameter to save this plan
+terraform Note: specify an "out parameter" to save this plan
+terraform specify an out parameter to save this plan
+
+
+
+
+
+
+
+
+[demo@demos-MacBook-Pro:~/pdev/chef-practice/t2(master)]$ terraform plan -var-file=secrets.tfvars
+Refreshing Terraform state prior to plan...
+
+aws_instance.chef: Refreshing state... (ID: i-ad3ef077)
+aws_security_group.chef: Refreshing state... (ID: sg-45fc4976)
+
+The Terraform execution plan has been generated and is shown below.
+Resources are shown in alphabetical order for quick scanning. Green resources
+will be created (or destroyed and then created if an existing resource
+exists), yellow resources are being changed in-place, and red resources
+will be destroyed.
+
+Note: You didn't specify an "-out" parameter to save this plan, so when
+"apply" is called, Terraform can't guarantee this is what will execute.
+
+-/+ aws_instance.chef
+    ami:                                       "" => "ami-5189a661"
+    availability_zone:                         "" => "<computed>"
+    ebs_block_device.#:                        "" => "<computed>"
+    ephemeral_block_device.#:                  "" => "<computed>"
+    instance_type:                             "" => "m3.medium"
+    key_name:                                  "" => "ephemeral-test"
+    monitoring:                                "" => "1"
+    placement_group:                           "" => "<computed>"
+    private_dns:                               "" => "<computed>"
+    private_ip:                                "" => "<computed>"
+    public_dns:                                "" => "<computed>"
+    public_ip:                                 "" => "<computed>"
+    root_block_device.#:                       "" => "1"
+    root_block_device.0.delete_on_termination: "" => "1"
+    root_block_device.0.iops:                  "" => "<computed>"
+    root_block_device.0.volume_size:           "" => "100"
+    root_block_device.0.volume_type:           "" => "<computed>"
+    security_groups.#:                         "" => "1"
+    security_groups.4064823014:                "" => "chef"
+    source_dest_check:                         "" => "1"
+    subnet_id:                                 "" => "<computed>"
+    tags.#:                                    "" => "1"
+    tags.Name:                                 "" => "chef"
+    tenancy:                                   "" => "<computed>"
+    vpc_security_group_ids.#:                  "" => "<computed>"
+
++ aws_route53_record.chef
+    fqdn:      "" => "<computed>"
+    name:      "" => "chef.streambox.com"
+    records.#: "" => "<computed>"
+    ttl:       "" => "60"
+    type:      "" => "A"
+    zone_id:   "" => "ZYM2WVE2N8MU5"
+
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+[demo@demos-MacBook-Pro:~/pdev/chef-practice/t2(master)]$ 
+
 * Chef server getting started
 
 **
@@ -554,4 +629,70 @@ Instead, your Terraform state file has been partially updated with
 any resources that successfully completed. Please address the error
 above and apply again to incrementally change your infrastructure.
 [demo@demos-MBP:~/pdev/chef-practice/t2(master)]$ 
+#+END_SRC
+
+** ssh: handshake failed: ssh: unable to authenticate, attempted methods [none publickey], no supported methods remain
+
+terraform ssh: handshake failed: ssh: unable to authenticate, attempted methods [none publickey], no supported methods remain
+terraform ssh: handshake failed: ssh: unable to authenticate, attempted methods
+
+#+BEGIN_SRC
+[demo@demos-MacBook-Pro:~/pdev/chef-practice/t2(master)]$ terraform apply -var-file=secrets.tfvars
+aws_security_group.chef: Creating...
+  description:                          "" => "Allow ssh inbound traffic from everywhere"
+  egress.#:                             "" => "<computed>"
+  ingress.#:                            "" => "1"
+  ingress.2541437006.cidr_blocks.#:     "" => "1"
+  ingress.2541437006.cidr_blocks.0:     "" => "0.0.0.0/0"
+  ingress.2541437006.from_port:         "" => "22"
+  ingress.2541437006.protocol:          "" => "tcp"
+  ingress.2541437006.security_groups.#: "" => "0"
+  ingress.2541437006.self:              "" => "0"
+  ingress.2541437006.to_port:           "" => "22"
+  name:                                 "" => "chef"
+  owner_id:                             "" => "<computed>"
+  tags.#:                               "" => "1"
+  tags.Name:                            "" => "chef"
+  vpc_id:                               "" => "<computed>"
+aws_security_group.chef: Creation complete
+aws_instance.chef: Creating...
+  ami:                                       "" => "ami-5189a661"
+  availability_zone:                         "" => "<computed>"
+  ebs_block_device.#:                        "" => "<computed>"
+  ephemeral_block_device.#:                  "" => "<computed>"
+  instance_type:                             "" => "m3.medium"
+  key_name:                                  "" => "ephemeral-test"
+  monitoring:                                "" => "1"
+  placement_group:                           "" => "<computed>"
+  private_dns:                               "" => "<computed>"
+  private_ip:                                "" => "<computed>"
+  public_dns:                                "" => "<computed>"
+  public_ip:                                 "" => "<computed>"
+  root_block_device.#:                       "" => "1"
+  root_block_device.0.delete_on_termination: "" => "1"
+  root_block_device.0.iops:                  "" => "<computed>"
+  root_block_device.0.volume_size:           "" => "100"
+  root_block_device.0.volume_type:           "" => "<computed>"
+  security_groups.#:                         "" => "1"
+  security_groups.4064823014:                "" => "chef"
+  source_dest_check:                         "" => "1"
+  subnet_id:                                 "" => "<computed>"
+  tags.#:                                    "" => "1"
+  tags.Name:                                 "" => "chef"
+  tenancy:                                   "" => "<computed>"
+  vpc_security_group_ids.#:                  "" => "<computed>"
+aws_instance.chef: Provisioning with 'file'...
+pwd
+Error applying plan:
+
+1 error(s) occurred:
+
+ * ssh: handshake failed: ssh: unable to authenticate, attempted methods [none publickey], no supported methods remain
+
+Terraform does not automatically rollback in the face of errors.
+Instead, your Terraform state file has been partially updated with
+any resources that successfully completed. Please address the error
+above and apply again to incrementally change your infrastructure.
+[demo@demos-MacBook-Pro:~/pdev/chef-practice/t2(master)]$ /Users/demo/pdev/chef-practice/t2
+[demo@demos-MacBook-Pro:~/pdev/chef-practice/t2(master)]$
 #+END_SRC

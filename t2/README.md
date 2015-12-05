@@ -16,12 +16,14 @@
 - [TODO find aws ec2 command to find relevent t1.micro images for all regions](#todo-find-aws-ec2-command-to-find-relevent-t1micro-images-for-all-regions)
 - [TODO find a way to automate the key generation, now I'm hard coding it](#todo-find-a-way-to-automate-the-key-generation-now-im-hard-coding-it)
 - [Can remote-exec go in separate file?](#can-remote-exec-go-in-separate-file)
+- [Note: You didn't specify an "-out" parameter to save this plan](#note-you-didnt-specify-an--out-parameter-to-save-this-plan)
 - [Chef server getting started](#chef-server-getting-started)
 - [Using ID in security group reference fails, but reference by name works](#using-id-in-security-group-reference-fails-but-reference-by-name-works)
   - [log](#log)
 - [Troubleshooting](#troubleshooting)
   - [aws~instance~.chef (remote-exec): dpkg-deb: error: \`chef~server~.deb' is not a debian format archive](#awsinstancechef-remote-exec-dpkg-deb-error-%5Cchefserverdeb-is-not-a-debian-format-archive)
   - [DONE terraform can't force destroy, or how can I get terraform to destroy group first](#done-terraform-cant-force-destroy-or-how-can-i-get-terraform-to-destroy-group-first)
+  - [ssh: handshake failed: ssh: unable to authenticate, attempted methods \[none publickey\], no supported methods remain](#ssh-handshake-failed-ssh-unable-to-authenticate-attempted-methods-%5Cnone-publickey%5C-no-supported-methods-remain)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -276,6 +278,64 @@ Can remote-exec go in separate file?
 
 Yes, here's how
 <https://terraform.io/docs/provisioners/remote-exec.html>
+
+Note: You didn't specify an "-out" parameter to save this plan
+==============================================================
+
+<https://www.terraform.io/docs/commands/plan.html>
+
+Maybe this: Note: You didn't specify an "-out" parameter to save this
+plan "apply" is called, Terraform can't guarantee this is what will
+execute.
+
+is an alert that we can improve reliability.
+
+terraform Note: You didn't specify an out parameter to save this plan
+terraform Note: specify an "out parameter" to save this plan terraform
+specify an out parameter to save this plan
+
+\[demo@demos-MacBook-Pro:\~/pdev/chef-practice/t2(master)\]\$ terraform
+plan -var-file=secrets.tfvars Refreshing Terraform state prior to
+plan...
+
+aws~instance~.chef: Refreshing state... (ID: i-ad3ef077)
+aws~securitygroup~.chef: Refreshing state... (ID: sg-45fc4976)
+
+The Terraform execution plan has been generated and is shown below.
+Resources are shown in alphabetical order for quick scanning. Green
+resources will be created (or destroyed and then created if an existing
+resource exists), yellow resources are being changed in-place, and red
+resources will be destroyed.
+
+Note: You didn't specify an "-out" parameter to save this plan, so when
+"apply" is called, Terraform can't guarantee this is what will execute.
+
+-/+ aws~instance~.chef ami: "" =&gt; "ami-5189a661" availability~zone~:
+"" =&gt; "&lt;computed&gt;" ebs~blockdevice~.\#: "" =&gt;
+"&lt;computed&gt;" ephemeral~blockdevice~.\#: "" =&gt;
+"&lt;computed&gt;" instance~type~: "" =&gt; "m3.medium" key~name~: ""
+=&gt; "ephemeral-test" monitoring: "" =&gt; "1" placement~group~: ""
+=&gt; "&lt;computed&gt;" private~dns~: "" =&gt; "&lt;computed&gt;"
+private~ip~: "" =&gt; "&lt;computed&gt;" public~dns~: "" =&gt;
+"&lt;computed&gt;" public~ip~: "" =&gt; "&lt;computed&gt;"
+root~blockdevice~.\#: "" =&gt; "1"
+root~blockdevice~.0.delete~ontermination~: "" =&gt; "1"
+root~blockdevice~.0.iops: "" =&gt; "&lt;computed&gt;"
+root~blockdevice~.0.volume~size~: "" =&gt; "100"
+root~blockdevice~.0.volume~type~: "" =&gt; "&lt;computed&gt;"
+security~groups~.\#: "" =&gt; "1" security~groups~.4064823014: "" =&gt;
+"chef" source~destcheck~: "" =&gt; "1" subnet~id~: "" =&gt;
+"&lt;computed&gt;" tags.\#: "" =&gt; "1" tags.Name: "" =&gt; "chef"
+tenancy: "" =&gt; "&lt;computed&gt;" vpc~securitygroupids~.\#: "" =&gt;
+"&lt;computed&gt;"
+
+-   aws~route53record~.chef fqdn: "" =&gt; "&lt;computed&gt;" name: ""
+    =&gt; "chef.streambox.com" records.\#: "" =&gt; "&lt;computed&gt;"
+    ttl: "" =&gt; "60" type: "" =&gt; "A" zone~id~: "" =&gt;
+    "ZYM2WVE2N8MU5"
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+\[demo@demos-MacBook-Pro:\~/pdev/chef-practice/t2(master)\]\$
 
 Chef server getting started
 ===========================
@@ -582,3 +642,68 @@ terraform InvalidGroup.InUse destroy
     above and apply again to incrementally change your infrastructure.
     [demo@demos-MBP:~/pdev/chef-practice/t2(master)]$ 
 
+ssh: handshake failed: ssh: unable to authenticate, attempted methods \[none publickey\], no supported methods remain
+---------------------------------------------------------------------------------------------------------------------
+
+terraform ssh: handshake failed: ssh: unable to authenticate, attempted
+methods \[none publickey\], no supported methods remain terraform ssh:
+handshake failed: ssh: unable to authenticate, attempted methods
+
+    [demo@demos-MacBook-Pro:~/pdev/chef-practice/t2(master)]$ terraform apply -var-file=secrets.tfvars
+    aws_security_group.chef: Creating...
+      description:                          "" => "Allow ssh inbound traffic from everywhere"
+      egress.#:                             "" => "<computed>"
+      ingress.#:                            "" => "1"
+      ingress.2541437006.cidr_blocks.#:     "" => "1"
+      ingress.2541437006.cidr_blocks.0:     "" => "0.0.0.0/0"
+      ingress.2541437006.from_port:         "" => "22"
+      ingress.2541437006.protocol:          "" => "tcp"
+      ingress.2541437006.security_groups.#: "" => "0"
+      ingress.2541437006.self:              "" => "0"
+      ingress.2541437006.to_port:           "" => "22"
+      name:                                 "" => "chef"
+      owner_id:                             "" => "<computed>"
+      tags.#:                               "" => "1"
+      tags.Name:                            "" => "chef"
+      vpc_id:                               "" => "<computed>"
+    aws_security_group.chef: Creation complete
+    aws_instance.chef: Creating...
+      ami:                                       "" => "ami-5189a661"
+      availability_zone:                         "" => "<computed>"
+      ebs_block_device.#:                        "" => "<computed>"
+      ephemeral_block_device.#:                  "" => "<computed>"
+      instance_type:                             "" => "m3.medium"
+      key_name:                                  "" => "ephemeral-test"
+      monitoring:                                "" => "1"
+      placement_group:                           "" => "<computed>"
+      private_dns:                               "" => "<computed>"
+      private_ip:                                "" => "<computed>"
+      public_dns:                                "" => "<computed>"
+      public_ip:                                 "" => "<computed>"
+      root_block_device.#:                       "" => "1"
+      root_block_device.0.delete_on_termination: "" => "1"
+      root_block_device.0.iops:                  "" => "<computed>"
+      root_block_device.0.volume_size:           "" => "100"
+      root_block_device.0.volume_type:           "" => "<computed>"
+      security_groups.#:                         "" => "1"
+      security_groups.4064823014:                "" => "chef"
+      source_dest_check:                         "" => "1"
+      subnet_id:                                 "" => "<computed>"
+      tags.#:                                    "" => "1"
+      tags.Name:                                 "" => "chef"
+      tenancy:                                   "" => "<computed>"
+      vpc_security_group_ids.#:                  "" => "<computed>"
+    aws_instance.chef: Provisioning with 'file'...
+    pwd
+    Error applying plan:
+
+    1 error(s) occurred:
+
+     * ssh: handshake failed: ssh: unable to authenticate, attempted methods [none publickey], no supported methods remain
+
+    Terraform does not automatically rollback in the face of errors.
+    Instead, your Terraform state file has been partially updated with
+    any resources that successfully completed. Please address the error
+    above and apply again to incrementally change your infrastructure.
+    [demo@demos-MacBook-Pro:~/pdev/chef-practice/t2(master)]$ /Users/demo/pdev/chef-practice/t2
+    [demo@demos-MacBook-Pro:~/pdev/chef-practice/t2(master)]$
