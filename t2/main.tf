@@ -45,8 +45,8 @@ resource "aws_instance" "chef" {
 
 	  /* Install Chef server and packages */
 	  "cd /tmp",
-	  "curl -Lo chef_server.deb https://packagecloud.io/chef/stable/packages/ubuntu/precise/chef-server-core_12.3.1-1_amd64.deb/download",
-	  "sudo dpkg -i chef_server.deb",
+	  "curl -Lo chef-server-core_12.3.1-1_amd64.deb https://packagecloud.io/chef/stable/packages/ubuntu/precise/chef-server-core_12.3.1-1_amd64.deb/download",
+	  "sudo dpkg -i chef-server-core_12.3.1-1_amd64.deb",
 	  "sudo chef-server-ctl reconfigure",
 
 	  /* Chef Manage */
