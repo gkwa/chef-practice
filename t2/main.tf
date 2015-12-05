@@ -34,7 +34,7 @@ resource "aws_instance" "chef" {
   provisioner "remote-exec" {
 	inline = [
 	  "chmod +x /tmp/chef-server-install.sh",
-      "sh -x /tmp/chef-server-install.sh"
+      "/tmp/chef-server-install.sh"
 	]
 
 	connection {
