@@ -39,3 +39,7 @@ sudo opscode-reporting-ctl reconfigure
 # Install stow
 curl -o stow-install.sh https://raw.githubusercontent.com/TaylorMonacelli/gnu-stow-install/master/install.sh
 sh -x stow-install.sh
+
+# Install emacs
+curl -o emacs-install-generic.sh https://raw.githubusercontent.com/TaylorMonacelli/emacs_build/emacsgeneric/emacs-install-generic.sh
+sh -x emacs-install-generic.sh
