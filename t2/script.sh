@@ -43,3 +43,13 @@ sh -x stow-install.sh
 # Install emacs
 curl -o emacs-install-generic.sh https://raw.githubusercontent.com/TaylorMonacelli/emacs_build/emacsgeneric/emacs-install-generic.sh
 sh -x emacs-install-generic.sh
+
+# Install taylor's dotfiles
+cd ~
+git init
+git remote add origin https://github.com/taylormonacelli/dotfiles
+git fetch --prune
+git checkout --force --track origin/master
+
+# Download emacs packages read from .emacs
+emacs --daemon
