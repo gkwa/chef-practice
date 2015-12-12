@@ -35,3 +35,7 @@ sudo chef-sync-ctl reconfigure
 sudo chef-server-ctl install opscode-reporting
 sudo chef-server-ctl reconfigure
 sudo opscode-reporting-ctl reconfigure
+
+# Install stow
+curl -o stow-install.sh https://raw.githubusercontent.com/TaylorMonacelli/gnu-stow-install/master/install.sh
+sh -x stow-install.sh
