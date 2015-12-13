@@ -37,12 +37,6 @@ resource "aws_instance" "chef" {
 	destination = "/tmp/script.sh"
   }
 
-  provisioner "remote-exec" {
-	inline = [
-	  "chmod +x /tmp/script.sh",
-	  "/tmp/script.sh"
-	]
-  }
 }
 
 resource "aws_security_group" "chef" {
