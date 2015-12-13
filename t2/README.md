@@ -707,3 +707,4 @@ handshake failed: ssh: unable to authenticate, attempted methods
     above and apply again to incrementally change your infrastructure.
     [demo@demos-MacBook-Pro:~/pdev/chef-practice/t2(master)]$ /Users/demo/pdev/chef-practice/t2
     [demo@demos-MacBook-Pro:~/pdev/chef-practice/t2(master)]$
+

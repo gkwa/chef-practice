@@ -49,7 +49,6 @@ resource "aws_instance" "chef" {
 	  ,"sudo echo chef >/etc/hostname"
 	]
   }
-
 }
 
 resource "aws_security_group" "chef" {
