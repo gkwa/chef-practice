@@ -44,9 +44,9 @@ resource "aws_instance" "chef" {
 
   provisioner "remote-exec" {
 	inline = [
-	  "cp -R /home/ubuntu/.ssh /root" # enables ssh root@chef
-	  ,"sh -x /tmp/sethosts.sh >/etc/hosts" # update hosts to chef.streambox.com
-	  ,"echo chef >/etc/hostname"
+	  "sudo cp -R /home/ubuntu/.ssh /root" # enables ssh root@chef
+	  ,"sudo sh -x /tmp/sethosts.sh >/etc/hosts" # update hosts to chef.streambox.com
+	  ,"sudo echo chef >/etc/hostname"
 	]
   }
 
