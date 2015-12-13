@@ -37,6 +37,12 @@ resource "aws_instance" "chef" {
 	destination = "/tmp/script.sh"
   }
 
+  provisioner "remote-exec" {
+	inline = [
+	  "cp -R /home/ubuntu/.ssh /root" # enables ssh root@chef
+	]
+  }
+
 }
 
 resource "aws_security_group" "chef" {
