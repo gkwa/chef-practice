@@ -46,6 +46,7 @@ resource "aws_instance" "chef" {
 	inline = [
 	  "cp -R /home/ubuntu/.ssh /root" # enables ssh root@chef
 	  ,"sh -x /tmp/sethosts.sh >/etc/hosts" # update hosts to chef.streambox.com
+	  ,"echo chef >/etc/hostname"
 	]
   }
 
