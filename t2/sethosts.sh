@@ -2,7 +2,7 @@
 
 ip=$(curl ipinfo.io/ip)
 
-cat <<__EOT__
+cat <<__EOT__ >/etc/hosts
 127.0.1.1 chef.streambox.com chef
 127.0.0.1 localhost
 $ip chef.streambox.com chef
