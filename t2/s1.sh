@@ -5,5 +5,5 @@
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH
 
 cd /tmp
-sh script.sh
-sh installemacs.sh
+sudo sh script.sh
+sudo sh installemacs.sh
