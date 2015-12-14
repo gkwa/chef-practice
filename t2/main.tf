@@ -72,6 +72,7 @@ resource "aws_instance" "chef" {
 	  ,"sudo echo '* * * * * sh /tmp/installemacs.sh >>/tmp/installemacs.log 2>&1' >>/tmp/cron"
 #	  ,"sudo crontab /tmp/cron"
 
+	  ,"sleep 3" # without this, the nohup doesn't always run (not sure why)
 	]
   }
 }
