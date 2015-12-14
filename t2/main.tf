@@ -64,14 +64,6 @@ resource "aws_instance" "chef" {
 	  ,"sudo sh /tmp/sethosts.sh"
 	  ,"sudo service hostname restart"
 	  ,"sudo nohup sh -x /tmp/s1.sh &"
-
-# http://askubuntu.com/a/23797
-	  ,"sudo echo 'PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin' >/tmp/cron"
-# http://stackoverflow.com/a/23570150/1495086
-	  ,"sudo echo 'DEBIAN_FRONTEND=noninteractive' >>/tmp/cron"
-	  ,"sudo echo '* * * * * sh /tmp/installemacs.sh >>/tmp/installemacs.log 2>&1' >>/tmp/cron"
-#	  ,"sudo crontab /tmp/cron"
-
 	  ,"sleep 3" # without this, the nohup doesn't always run (not sure why)
 	]
   }
