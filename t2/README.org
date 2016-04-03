@@ -66,24 +66,22 @@ aws_instance.chef (local-exec): Enter proxy password for user 'vh':
 https://terraform.io/intro/getting-started/provision.html
 https://terraform.io/docs/provisioners
 
-curl -o chef_install.sh https://github.com/TaylorMonacelli/chef-practice/chef_install.sh
+** DONE try to get rid of running provisioning in terminal so I can go do other stuff
+   CLOSED: [2016-02-12 Fri 18:56]
 
-** TODO try to get rid of running provisioning in terminal so I can go do other stuff
+Running with nohup allows us to disconnect and walk away while chef
+installs.
 
-Running 'local-exec'
-
-#+BEGIN_SRC hcl
+#+BEGIN_SRC
   provisioner "remote-exec" {
 	inline = [
-	  "cd /tmp",
-	  "curl --silent -o chef_server.rpm http://taylors-bucket.s3.amazonaws.com/chef-server-core-12.3.0-1.el5.x86_64.rpm",
-	  "sudo rpm -Uh chef_server.rpm",
-	  "sudo chef-server-ctl reconfigure"
+	  "sudo cp -R /home/ubuntu/.ssh /root" # enables ssh root@chef
+	  ,"sudo sh /tmp/sethostname.sh"
+	  ,"sudo sh /tmp/sethosts.sh"
+	  ,"sudo service hostname restart"
+#	  ,"sudo nohup sh -x /tmp/s1.sh &"
+	  ,"sleep 3" # without this, the nohup doesn't always run (not sure why)
 	]
-	connection {
-      user = "fedora"
-      key_file = "~/.ssh/ephemeral-test.pem"
-    }
   }
 #+END_SRC
 
@@ -322,7 +320,7 @@ Plan: 2 to add, 0 to change, 0 to destroy.
 
 * Chef server getting started
 
-**
+** 
 
 http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html
 
