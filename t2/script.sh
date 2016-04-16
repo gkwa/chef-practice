@@ -13,9 +13,11 @@ sudo apt-get -qq update
 sudo apt-get -qq install --assume-yes git
 
 # Install Chef server and packages
+# https://downloads.chef.io/chef-server/ubuntu/
 cd /tmp
-curl -Lo chef-server-core_12.3.1-1_amd64.deb https://packagecloud.io/chef/stable/packages/ubuntu/precise/chef-server-core_12.3.1-1_amd64.deb/download
-sudo dpkg -i chef-server-core_12.3.1-1_amd64.deb
+installer=chef-server-core_12.5.0-1_amd64.deb
+curl -Lo $installer https://packages.chef.io/stable/ubuntu/14.04/$installer
+sudo dpkg -i $installer
 sudo chef-server-ctl reconfigure
 
 # Chef Manage
