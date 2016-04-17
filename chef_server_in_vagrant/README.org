@@ -1,0 +1,9 @@
+* usage
+
+#+BEGIN_SRC
+make clean test
+make clean
+#+END_SRC
+
+* install chef server on unbuntu using vagrant
+https://docs.chef.io/release/server_12-5/install_server.html#standalone
