@@ -12,10 +12,12 @@ sudo apt-get -qq update
 
 sudo apt-get -qq install --assume-yes git
 
+cd /tmp
+
 # Install Chef server and packages
 # https://downloads.chef.io/chef-server/ubuntu/
-cd /tmp
-curl -LO https://omnitruck.chef.io/install.sh && sudo bash ./install.sh -v 12.5.0
+curl -LO https://packages.chef.io/stable/ubuntu/14.04/chef-server-core_12.5.0-1_amd64.deb
+sudo dpkg -i chef-server-*_*_*.deb
 sudo chef-server-ctl reconfigure
 
 # Chef Manage
