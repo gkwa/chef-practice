@@ -63,7 +63,7 @@ resource "aws_instance" "chef" {
 	  ,"sudo sh /tmp/sethostname.sh"
 	  ,"sudo sh /tmp/sethosts.sh"
 	  ,"sudo service hostname restart"
-#	  ,"sudo nohup sh -x /tmp/s1.sh &"
+	  ,"sudo nohup sh -x /tmp/s1.sh &"
 	  ,"sleep 3" # without this, the nohup doesn't always run (not sure why)
 	]
   }
@@ -82,12 +82,6 @@ resource "aws_security_group" "chef" {
   ingress {
 	from_port = 443
 	to_port = 443
-	protocol = "tcp"
-	cidr_blocks = ["0.0.0.0/0"]
-  }
-  ingress {
-	from_port = 80
-	to_port = 80
 	protocol = "tcp"
 	cidr_blocks = ["0.0.0.0/0"]
   }
