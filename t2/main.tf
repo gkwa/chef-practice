@@ -98,8 +98,8 @@ resource "aws_security_group" "chef" {
 
 
 output "sship" {
-  value = "ssh -i ~/.ssh/ephemeral-test.pem ubuntu@${aws_instance.chef.public_ip}"
+  value = "ssh -i ~/.ssh/ephemeral-test.pem -o StrictHostKeyChecking=no ubuntu@${aws_instance.chef.public_ip}"
 }
 output "sshdns" {
-  value = "ssh -i ~/.ssh/ephemeral-test.pem ubuntu@${aws_route53_record.chef.name}"
+  value = "ssh -i ~/.ssh/ephemeral-test.pem -o StrictHostKeyChecking=no ubuntu@${aws_route53_record.chef.name}"
 }
