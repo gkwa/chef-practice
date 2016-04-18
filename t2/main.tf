@@ -14,7 +14,7 @@ resource "aws_route53_record" "chef" {
 
 resource "aws_instance" "chef" {
   ami = "${lookup(var.amis, var.region)}"
-  instance_type = "m3.medium"
+  instance_type = "c3.large"
   key_name = "ephemeral-test"
   security_groups = ["${aws_security_group.chef.name}"]
   monitoring = true
