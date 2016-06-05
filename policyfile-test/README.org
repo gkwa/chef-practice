@@ -1,3 +1,52 @@
+* sed -i 's/keepcache=0/keepcache=1/g' /etc/yum.conf Ran vagrant up --no-provision --provider virtualbox returned 1
+
+** possible fix
+
+https://goo.gl/fGxr59
+
+vagrant ssh
+sudo ln -s /etc/dnf/dnf.conf /etc/yum.conf
+exit
+vagrant reload
+
+** log: sed -i 's/keepcache=0/keepcache=1/g' /etc/yum.conf
+
+https://github.com/fgrehm/vagrant-cachier/pull/164
+https://github.com/fgrehm/vagrant-cachier/issues/163
+https://goo.gl/CmhUDI
+
+==> default: Checking for guest additions in VM...
+==> default: Setting hostname...
+==> default: Mounting shared folders...
+    default: /tmp/vagrant-cache => /Users/demo/.vagrant.d/cache/bento/fedora-23
+==> default: Configuring cache buckets...
+STDERR: The following SSH command responded with a non-zero exit status.
+Vagrant assumes that this means the command failed!
+
+sed -i 's/keepcache=0/keepcache=1/g' /etc/yum.conf
+
+Stderr from the command:
+
+---- End output of vagrant up --no-provision --provider virtualbox ----
+Ran vagrant up --no-provision --provider virtualbox returned 1
+E, [2016-06-05T14:09:56.537827 #60974] ERROR -- Kitchen: ------Backtrace-------
+E, [2016-06-05T14:09:56.537856 #60974] ERROR -- Kitchen: /opt/chefdk/embedded/lib/ruby/gems/2.1.0/gems/test-kitchen-1.8.0/lib/kitchen/shell_out.rb:73:in `rescue in run_command'
+E, [2016-06-05T14:09:56.537871 #60974] ERROR -- Kitchen: /opt/chefdk/embedded/lib/ruby/gems/2.1.0/gems/test-kitchen-1.8.0/lib/kitchen/shell_out.rb:61:in `run_command'
+E, [2016-06-05T14:09:56.537884 #60974] ERROR -- Kitchen: /opt/chefdk/embedded/lib/ruby/gems/2.1.0/gems/kitchen-vagrant-0.20.0/lib/kitchen/driver/vagrant.rb:343:in `run_command'
+E, [2016-06-05T14:09:56.537897 #60974] ERROR -- Kitchen: /opt/chefdk/embedded/lib/ruby/gems/2.1.0/gems/kitchen-vagrant-0.20.0/lib/kitchen/driver/vagrant.rb:302:in `run'
+E, [2016-06-05T14:09:56.537910 #60974] ERROR -- Kitchen: /opt/chefdk/embedded/lib/ruby/gems/2.1.0/gems/kitchen-vagrant-0.20.0/lib/kitchen/driver/vagrant.rb:373:in `run_vagrant_up'
+E, [2016-06-05T14:09:56.537923 #60974] ERROR -- Kitchen: /opt/chefdk/embedded/lib/ruby/gems/2.1.0/gems/kitchen-vagrant-0.20.0/lib/kitchen/driver/vagrant.rb:96:in `create'
+E, [2016-06-05T14:09:56.537935 #60974] ERROR -- Kitchen: /opt/chefdk/embedded/lib/ruby/gems/2.1.0/gems/test-kitchen-1.8.0/lib/kitchen/instance.rb:449:in `public_send'
+E, [2016-06-05T14:09:56.537948 #60974] ERROR -- Kitchen: /opt/chefdk/embedded/lib/ruby/gems/2.1.0/gems/test-kitchen-1.8.0/lib/kitchen/instance.rb:449:in `block in perform_action'
+E, [2016-06-05T14:09:56.537976 #60974] ERROR -- Kitchen: /opt/chefdk/embedded/lib/ruby/gems/2.1.0/gems/test-kitchen-1.8.0/lib/kitchen/instance.rb:510:in `call'
+E, [2016-06-05T14:09:56.537988 #60974] ERROR -- Kitchen: /opt/chefdk/embedded/lib/ruby/gems/2.1.0/gems/test-kitchen-1.8.0/lib/kitchen/instance.rb:510:in `block in synchronize_or_call'
+E, [2016-06-05T14:09:56.538000 #60974] ERROR -- Kitchen: /opt/chefdk/embedded/lib/ruby/gems/2.1.0/gems/test-kitchen-1.8.0/lib/kitchen/instance.rb:508:in `synchronize'
+E, [2016-06-05T14:09:56.538011 #60974] ERROR -- Kitchen: /opt/chefdk/embedded/lib/ruby/gems/2.1.0/gems/test-kitchen-1.8.0/lib/kitchen/instance.rb:508:in `synchronize_or_call'
+E, [2016-06-05T14:09:56.538024 #60974] ERROR -- Kitchen: /opt/chefdk/embedded/lib/ruby/gems/2.1.0/gems/test-kitchen-1.8.0/lib/kitchen/instance.rb:478:in `block in action'
+E, [2016-06-05T14:09:56.538034 #60974] ERROR -- Kitchen: /opt/chefdk/embedded/lib/ruby/2.1.0/benchmark.rb:279:in `measure'
+E, [2016-06-05T14:09:56.538045 #60974] ERROR -- Kitchen: /opt/chefdk/embedded/lib/ruby/gems/2.1.0/gems/test-kitchen-1.8.0/lib/kitchen/instance.rb:477:in `action'
+E, [2016-06-05T14:09:56.538057 #60974] ERROR -- Kitchen: /opt/chefdk/embedded/lib/ruby/gems/2.1.0/gems/test-kitchen-1.8.0/lib/kitchen/instance.rb:449:in `perform_action'
+
 * how to run
 ** example
 sh -x run.sh

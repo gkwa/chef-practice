@@ -161,10 +161,10 @@ platforms:
   - name: centos-7.2
   - name: debian-7.9
   - name: debian-8.3
-  - name: fedora-22
-  - name: fedora-23
   - name: freebsd-9.3
   - name: freebsd-10.2
+#  - name: fedora-22 # vagrant-cachier 1.2.1 doesn't know fedora uses and there is no /etc/yum.conf
+#  - name: fedora-23 # vagrant-cachier 1.2.1 doesn't know fedora uses and there is no /etc/yum.conf
 
 suites:
   - name: default
