@@ -161,8 +161,8 @@ platforms:
   - name: centos-7.2
   - name: debian-7.9
   - name: debian-8.3
-  - name: freebsd-9.3
-  - name: freebsd-10.2
+#  - name: freebsd-9.3 # uncomment this if you remove vagrant-cachier from Vagrantfile
+#  - name: freebsd-10.2 # uncomment this if you remove vagrant-cachier from Vagrantfile
 #  - name: fedora-22 # vagrant-cachier 1.2.1 doesn't know fedora uses and there is no /etc/yum.conf
 #  - name: fedora-23 # vagrant-cachier 1.2.1 doesn't know fedora uses and there is no /etc/yum.conf
 

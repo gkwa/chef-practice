@@ -1,3 +1,36 @@
+* vagrant-cachier causes mount error in freebsd
+
+freebsd STDERR: Sorry, don't know how to check guest version of Virtualbox Guest Additions on this platform.
+http://superuser.com/a/806842/185226
+https://www.vagrantup.com/docs/synced-folders/basic_usage.html
+
+Adding this will not fix freebsd
+
+using this:
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+You also have to remove vagrant-cacheir
+
+Removing this fixes it;
+
+  if Vagrant.has_plugin?('vagrant-cachier')
+    config.cache.scope = :box
+	config.cache.enable :pacman
+	config.cache.enable :rvm
+	config.cache.enable :chef
+	config.cache.enable :yum
+	config.cache.enable :apt
+	config.cache.enable :gem
+  end
+
+** log
+
+==> default: Mounting shared folders...
+    default: /tmp/vagrant-cache => /Users/demo/.vagrant.d/cache/bento/freebsd-9.3
+STDERR: Vagrant attempted to execute the capability 'mount_virtualbox_shared_folder'
+on the detect guest OS 'freebsd', but the guest doesn't
+support that capability.
+
 * sed -i 's/keepcache=0/keepcache=1/g' /etc/yum.conf Ran vagrant up --no-provision --provider virtualbox returned 1
 
 ** possible fix
