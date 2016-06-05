@@ -1,5 +1,7 @@
 * how to run
 ** example
+sh -x run.sh
+** example
 sh -x run.sh && (cd aar && kitchen converge -p)
 
 ** example

@@ -1,10 +1,13 @@
-t3:
+ubuntu:
+	sh -x run.sh && (cd aar && kitchen converge -p ubuntu-1404)
+
+fedora:
+	sh -x run.sh && (cd aar && kitchen converge -p fedora-23)
+
+freebsd:
 	sh -x run.sh && (cd aar && kitchen converge -p freebsd-9)
 
-t2:
-	sh -x run.sh && (cd aar && kitchen converge -p ubuntu-14.04)
-
-t1:
+template:
 	sh -x run.sh
 
 readme: README.md
