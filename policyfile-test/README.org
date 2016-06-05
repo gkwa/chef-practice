@@ -1,0 +1,286 @@
+* how to run
+** example
+sh -x run.sh && (cd aar && kitchen converge -p)
+
+** example
+sh -x run.sh && (cd aar && kitchen converge freebsd-9 -p)
+
+*
+* log: STDERR: Sorry, don't know how to check guest version of Virtualbox Guest Additions on this platform. Stopping installation.
+
+http://superuser.com/a/806842/185226
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+    config.vm.box = "chef/freebsd-10.0"
+    config.vm.network "private_network", type: "dhcp"
+    config.vm.synced_folder ".", "/vagrant", type: "nfs"
+end
+
+
+freebsd STDERR: Sorry, don't know how to check guest version of Virtualbox Guest Additions on this platform.
+
+STDERR: Sorry, don't know how to check guest version of Virtualbox Guest Additions on this platform. Stopping installation.
+
+[demo@demos-MacBook-Pro:~/pdev/TaylorMonacelli/chef-practice/policyfile-test/aar(master)]$ kitchen converge freebsd-9 -p
+-----> Starting Kitchen (v1.8.0)
+-----> Using policyfile mode for chef-client
+-----> Using policyfile mode for chef-client
+-----> Using policyfile mode for chef-client
+-----> Using policyfile mode for chef-client
+-----> Using policyfile mode for chef-client
+-----> Using policyfile mode for chef-client
+-----> Using policyfile mode for chef-client
+-----> Using policyfile mode for chef-client
+-----> Using policyfile mode for chef-client
+-----> Using policyfile mode for chef-client
+-----> Using policyfile mode for chef-client
+-----> Creating <default-freebsd-93>...
+       Bringing machine 'default' up with 'virtualbox' provider...
+       ==> default: Importing base box 'bento/freebsd-9.3'...
+==> default: Matching MAC address for NAT networking...
+       ==> default: Checking if box 'bento/freebsd-9.3' is up to date...
+       ==> default: Setting the name of the VM: kitchen-aar-default-freebsd-93_default_1465155370004_76543
+       ==> default: Clearing any previously set network interfaces...
+       ==> default: Preparing network interfaces based on configuration...
+           default: Adapter 1: nat
+       ==> default: Forwarding ports...
+           default: 80 (guest) => 8080 (host) (adapter 1)
+           default: 22 (guest) => 2222 (host) (adapter 1)
+       ==> default: Booting VM...
+       ==> default: Waiting for machine to boot. This may take a few minutes...
+           default: SSH address: 127.0.0.1:2222
+           default: SSH username: vagrant
+           default: SSH auth method: private key
+           default: Warning: Remote connection disconnect. Retrying...
+           default: Warning: Remote connection disconnect. Retrying...
+           default: Warning: Remote connection disconnect. Retrying...
+           default:
+           default: Vagrant insecure key detected. Vagrant will automatically replace
+           default: this with a newly generated keypair for better security.
+           default:
+           default: Inserting generated public key within guest...
+           default: Removing insecure key from the guest if it's present...
+           default: Key inserted! Disconnecting and reconnecting using new SSH key...
+       ==> default: Machine booted and ready!
+       Sorry, don't know how to check guest version of Virtualbox Guest Additions on this platform. Stopping installation.
+       ==> default: Checking for guest additions in VM...
+           default: The guest additions on this VM do not match the installed version of
+           default: VirtualBox! In most cases this is fine, but in rare cases it can
+           default: prevent things such as shared folders from working properly. If you see
+           default: shared folder errors, please make sure the guest additions within the
+           default: virtual machine match the version of VirtualBox you have installed on
+           default: your host and reload your VM.
+           default:
+           default: Guest Additions Version: 4.3.38
+           default: VirtualBox Version: 5.0
+       ==> default: Setting hostname...
+       ==> default: Mounting shared folders...
+           default: /tmp/vagrant-cache => /Users/demo/.vagrant.d/cache/bento/freebsd-9.3
+       Vagrant attempted to execute the capability 'mount_virtualbox_shared_folder'
+       on the detect guest OS 'freebsd', but the guest doesn't
+       support that capability. This capability is required for your
+       configuration of Vagrant. Please either reconfigure Vagrant to
+       avoid this capability or fix the issue by creating the capability.
+>>>>>> ------Exception-------
+>>>>>> Class: Kitchen::ActionFailed
+>>>>>> Message: Failed to complete #create action: [Expected process to exit with [0], but received '1'
+---- Begin output of vagrant up --no-provision --provider virtualbox ----
+STDOUT: Bringing machine 'default' up with 'virtualbox' provider...
+==> default: Importing base box 'bento/freebsd-9.3'...
+==> default: Matching MAC address for NAT networking...
+==> default: Checking if box 'bento/freebsd-9.3' is up to date...
+==> default: Setting the name of the VM: kitchen-aar-default-freebsd-93_default_1465155370004_76543
+==> default: Clearing any previously set network interfaces...
+==> default: Preparing network interfaces based on configuration...
+    default: Adapter 1: nat
+==> default: Forwarding ports...
+    default: 80 (guest) => 8080 (host) (adapter 1)
+    default: 22 (guest) => 2222 (host) (adapter 1)
+==> default: Booting VM...
+==> default: Waiting for machine to boot. This may take a few minutes...
+    default: SSH address: 127.0.0.1:2222
+    default: SSH username: vagrant
+    default: SSH auth method: private key
+    default: Warning: Remote connection disconnect. Retrying...
+    default: Warning: Remote connection disconnect. Retrying...
+    default: Warning: Remote connection disconnect. Retrying...
+    default:
+    default: Vagrant insecure key detected. Vagrant will automatically replace
+    default: this with a newly generated keypair for better security.
+    default:
+    default: Inserting generated public key within guest...
+    default: Removing insecure key from the guest if it's present...
+    default: Key inserted! Disconnecting and reconnecting using new SSH key...
+==> default: Machine booted and ready!
+==> default: Checking for guest additions in VM...
+    default: The guest additions on this VM do not match the installed version of
+    default: VirtualBox! In most cases this is fine, but in rare cases it can
+    default: prevent things such as shared folders from working properly. If you see
+    default: shared folder errors, please make sure the guest additions within the
+    default: virtual machine match the version of VirtualBox you have installed on
+    default: your host and reload your VM.
+    default:
+    default: Guest Additions Version: 4.3.38
+    default: VirtualBox Version: 5.0
+==> default: Setting hostname...
+==> default: Mounting shared folders...
+    default: /tmp/vagrant-cache => /Users/demo/.vagrant.d/cache/bento/freebsd-9.3
+STDERR: Sorry, don't know how to check guest version of Virtualbox Guest Additions on this platform. Stopping installation.
+Vagrant attempted to execute the capability 'mount_virtualbox_shared_folder'
+on the detect guest OS 'freebsd', but the guest doesn't
+support that capability. This capability is required for your
+configuration of Vagrant. Please either reconfigure Vagrant to
+avoid this capability or fix the issue by creating the capability.
+---- End output of vagrant up --no-provision --provider virtualbox ----
+Ran vagrant up --no-provision --provider virtualbox returned 1]
+>>>>>> ----------------------
+>>>>>> Please see .kitchen/logs/kitchen.log for more details
+>>>>>> Also try running `kitchen diagnose --all` for configuration
+
+[demo@demos-MacBook-Pro:~/pdev/TaylorMonacelli/chef-practice/policyfile-test/aar(master)]$
+
+* log: freebsd STDERR: Vagrant attempted to execute the capability 'mount_virtualbox_shared_folder'
+
+https://goo.gl/e2R9ES
+freebsd STDERR: Vagrant attempted to execute the capability 'mount_virtualbox_shared_folder'
+
+STDERR: Vagrant attempted to execute the capability 'mount_virtualbox_shared_folder'
+on the detect guest OS 'freebsd', but the guest doesn't
+support that capability. This capability is required for your
+configuration of Vagrant. Please either reconfigure Vagrant to
+avoid this capability or fix the issue by creating the capability.
+
+[demo@demos-MacBook-Pro:~/pdev/TaylorMonacelli/chef-practice/policyfile-test/aar(master)]$ kitchen converge freebsd-9 -p
+-----> Starting Kitchen (v1.8.0)
+-----> Using policyfile mode for chef-client
+-----> Using policyfile mode for chef-client
+-----> Using policyfile mode for chef-client
+-----> Using policyfile mode for chef-client
+-----> Using policyfile mode for chef-client
+-----> Using policyfile mode for chef-client
+-----> Using policyfile mode for chef-client
+-----> Using policyfile mode for chef-client
+-----> Using policyfile mode for chef-client
+-----> Using policyfile mode for chef-client
+-----> Using policyfile mode for chef-client
+-----> Creating <default-freebsd-93>...
+       Bringing machine 'default' up with 'virtualbox' provider...
+       ==> default: Box 'bento/freebsd-9.3' could not be found. Attempting to find and install...
+           default: Box Provider: virtualbox
+           default: Box Version: >= 0
+       ==> default: Loading metadata for box 'bento/freebsd-9.3'
+           default: URL: https://atlas.hashicorp.com/bento/freebsd-9.3
+       ==> default: Adding box 'bento/freebsd-9.3' (v2.2.7) for provider: virtualbox
+           default: Downloading: https://atlas.hashicorp.com/bento/boxes/freebsd-9.3/versions/2.2.7/providers/virtualbox.box
+       ==> default: Box download is resuming from prior download progress
+==> default: Successfully added box 'bento/freebsd-9.3' (v2.2.7) for 'virtualbox'!
+       ==> default: Importing base box 'bento/freebsd-9.3'...
+==> default: Matching MAC address for NAT networking...
+       ==> default: Checking if box 'bento/freebsd-9.3' is up to date...
+       ==> default: Setting the name of the VM: kitchen-aar-default-freebsd-93_default_1465154684532_16418
+       ==> default: Clearing any previously set network interfaces...
+       ==> default: Preparing network interfaces based on configuration...
+           default: Adapter 1: nat
+       ==> default: Forwarding ports...
+           default: 80 (guest) => 8080 (host) (adapter 1)
+           default: 22 (guest) => 2222 (host) (adapter 1)
+       ==> default: Booting VM...
+       ==> default: Waiting for machine to boot. This may take a few minutes...
+           default: SSH address: 127.0.0.1:2222
+           default: SSH username: vagrant
+           default: SSH auth method: private key
+           default: Warning: Remote connection disconnect. Retrying...
+           default: Warning: Remote connection disconnect. Retrying...
+           default: Warning: Remote connection disconnect. Retrying...
+           default:
+           default: Vagrant insecure key detected. Vagrant will automatically replace
+           default: this with a newly generated keypair for better security.
+           default:
+           default: Inserting generated public key within guest...
+           default: Removing insecure key from the guest if it's present...
+           default: Key inserted! Disconnecting and reconnecting using new SSH key...
+       ==> default: Machine booted and ready!
+       ==> default: Checking for guest additions in VM...
+           default: The guest additions on this VM do not match the installed version of
+           default: VirtualBox! In most cases this is fine, but in rare cases it can
+           default: prevent things such as shared folders from working properly. If you see
+           default: shared folder errors, please make sure the guest additions within the
+           default: virtual machine match the version of VirtualBox you have installed on
+           default: your host and reload your VM.
+           default:
+           default: Guest Additions Version: 4.3.38
+           default: VirtualBox Version: 5.0
+       ==> default: Setting hostname...
+       ==> default: Mounting shared folders...
+           default: /tmp/vagrant-cache => /Users/demo/.vagrant.d/cache/bento/freebsd-9.3
+       Vagrant attempted to execute the capability 'mount_virtualbox_shared_folder'
+       on the detect guest OS 'freebsd', but the guest doesn't
+       support that capability. This capability is required for your
+       configuration of Vagrant. Please either reconfigure Vagrant to
+       avoid this capability or fix the issue by creating the capability.
+>>>>>> ------Exception-------
+>>>>>> Class: Kitchen::ActionFailed
+>>>>>> Message: Failed to complete #create action: [Expected process to exit with [0], but received '1'
+---- Begin output of vagrant up --no-provision --provider virtualbox ----
+STDOUT: Bringing machine 'default' up with 'virtualbox' provider...
+==> default: Box 'bento/freebsd-9.3' could not be found. Attempting to find and install...
+    default: Box Provider: virtualbox
+    default: Box Version: >= 0
+==> default: Loading metadata for box 'bento/freebsd-9.3'
+    default: URL: https://atlas.hashicorp.com/bento/freebsd-9.3
+==> default: Adding box 'bento/freebsd-9.3' (v2.2.7) for provider: virtualbox
+    default: Downloading: https://atlas.hashicorp.com/bento/boxes/freebsd-9.3/versions/2.2.7/providers/virtualbox.box
+==> default: Box download is resuming from prior download progress
+==> default: Successfully added box 'bento/freebsd-9.3' (v2.2.7) for 'virtualbox'!
+==> default: Importing base box 'bento/freebsd-9.3'...
+==> default: Matching MAC address for NAT networking...
+==> default: Checking if box 'bento/freebsd-9.3' is up to date...
+==> default: Setting the name of the VM: kitchen-aar-default-freebsd-93_default_1465154684532_16418
+==> default: Clearing any previously set network interfaces...
+==> default: Preparing network interfaces based on configuration...
+    default: Adapter 1: nat
+==> default: Forwarding ports...
+    default: 80 (guest) => 8080 (host) (adapter 1)
+    default: 22 (guest) => 2222 (host) (adapter 1)
+==> default: Booting VM...
+==> default: Waiting for machine to boot. This may take a few minutes...
+    default: SSH address: 127.0.0.1:2222
+    default: SSH username: vagrant
+    default: SSH auth method: private key
+    default: Warning: Remote connection disconnect. Retrying...
+    default: Warning: Remote connection disconnect. Retrying...
+    default: Warning: Remote connection disconnect. Retrying...
+    default:
+    default: Vagrant insecure key detected. Vagrant will automatically replace
+    default: this with a newly generated keypair for better security.
+    default:
+    default: Inserting generated public key within guest...
+    default: Removing insecure key from the guest if it's present...
+    default: Key inserted! Disconnecting and reconnecting using new SSH key...
+==> default: Machine booted and ready!
+==> default: Checking for guest additions in VM...
+    default: The guest additions on this VM do not match the installed version of
+    default: VirtualBox! In most cases this is fine, but in rare cases it can
+    default: prevent things such as shared folders from working properly. If you see
+    default: shared folder errors, please make sure the guest additions within the
+    default: virtual machine match the version of VirtualBox you have installed on
+    default: your host and reload your VM.
+    default:
+    default: Guest Additions Version: 4.3.38
+    default: VirtualBox Version: 5.0
+==> default: Setting hostname...
+==> default: Mounting shared folders...
+    default: /tmp/vagrant-cache => /Users/demo/.vagrant.d/cache/bento/freebsd-9.3
+STDERR: Vagrant attempted to execute the capability 'mount_virtualbox_shared_folder'
+on the detect guest OS 'freebsd', but the guest doesn't
+support that capability. This capability is required for your
+configuration of Vagrant. Please either reconfigure Vagrant to
+avoid this capability or fix the issue by creating the capability.
+---- End output of vagrant up --no-provision --provider virtualbox ----
+Ran vagrant up --no-provision --provider virtualbox returned 1]
+>>>>>> ----------------------
+>>>>>> Please see .kitchen/logs/kitchen.log for more details
+>>>>>> Also try running `kitchen diagnose --all` for configuration
+[demo@demos-MacBook-Pro:~/pdev/TaylorMonacelli/chef-practice/policyfile-test/aar(master)]$
