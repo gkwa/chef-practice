@@ -1,3 +1,22 @@
+* TODO Explore vagrant_erb
+
+https://github.com/mross462/Vagrantfile/blob/master/Vagrantfile
+https://github.com/test-kitchen/kitchen-vagrant/issues/186
+http://www.ovaistariq.net/833/speedup-test-kitchen-vagrant-testing/#.V1SypJMrJE5
+
+* kitchen.yml platforms driver_config
+
+kitchen.yml platforms driver_config
+https://goo.gl/kSdKm2
+
+* TODO explore vagrant api
+
+API doc
+https://github.com/mross462/Vagrantfile/blob/master/Vagrantfile
+
+Example:
+http://www.rubydoc.info/github/mitchellh/vagrant/Vagrant/Config/Loader
+
 * vagrant-cachier causes mount error in freebsd
 
 freebsd STDERR: Sorry, don't know how to check guest version of Virtualbox Guest Additions on this platform.
