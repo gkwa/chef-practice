@@ -144,8 +144,8 @@ cat <<'__EOT__' >.kitchen.yml
 ---
 driver:
   name: vagrant
-  network:
-    - ["forwarded_port", {guest: 80, host: 8080}]
+#  network:
+#    - ["forwarded_port", {guest: 80, host: 8080}]
   vagrantfiles:
     - VagrantAdditionalConfig.rb #Vagrantfiles must have a .rb extension to satisfy Ruby's Kernel#require.
 

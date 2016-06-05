@@ -7,6 +7,9 @@ fedora:
 freebsd:
 	sh -x run.sh && (cd aar && kitchen converge -p freebsd-9)
 
+all:
+	sh -x run.sh && (cd aar && kitchen converge -p)
+
 template:
 	sh -x run.sh
 
