@@ -1,3 +1,6 @@
+centos:
+	sh -x run.sh && (cd aar && kitchen converge -p centos-72)
+
 ubuntu:
 	sh -x run.sh && (cd aar && kitchen converge -p ubuntu-1404)
 
