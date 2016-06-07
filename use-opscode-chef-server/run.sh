@@ -198,7 +198,7 @@ driver:
     - VagrantAdditionalConfig.rb #Vagrantfiles must have a .rb extension to satisfy Ruby's Kernel#require.
 
 provisioner:
-  name: chef_solo
+  name: chef_zero
   require_chef_omnibus: 12.10.24
 
 platforms:
