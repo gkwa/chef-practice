@@ -1,0 +1,471 @@
+* log
+
+This needs work, but its at least working
+
+#+BEGIN_SRC 
+[demo@demos-MacBook-Pro:~/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server(tm/opscode_provision_vagrant)]$ make
+# just to generate Vagrantfile:
+sh -x run.sh && (cd aar/cookbooks/motd_rhel && kitchen converge -p ubuntu-1404)
++ :
++ set -e
+++ dirname run.sh
++ pushd .
+++ pwd
++ root=/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server
++ popd
++ vagrant plugin list
++ awk '{print $1}'
++ for vp in vagrant-vbguest vagrant-cachier vagrant-omnibus
++ grep vagrant-vbguest ./plugins
+vagrant-vbguest
++ for vp in vagrant-vbguest vagrant-cachier vagrant-omnibus
++ grep vagrant-cachier ./plugins
+vagrant-cachier
++ for vp in vagrant-vbguest vagrant-cachier vagrant-omnibus
++ grep vagrant-omnibus ./plugins
+vagrant-omnibus
++ rm -f ./plugins
++ vboxmanage list vms
++ ack '{(.*)}' ack '--output=vboxmanage controlvm $1 poweroff; vboxmanage unregistervm $1 --delete'
++ sh -x -
++ vboxmanage controlvm fb86d720-d3c3-4190-ae7a-042b1f989b6c poweroff
+0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
++ vboxmanage unregistervm fb86d720-d3c3-4190-ae7a-042b1f989b6c --delete
+0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
++ '[' -d aar ']'
++ rm -rf aar
++ mkdir aar
++ cd aar
++ chef generate app .
+Installing Cookbook Gems:
+Compiling Cookbooks...
+Recipe: code_generator::app
+  * directory[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar] action create (up to date)
+  * template[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/.kitchen.yml] action create
+    - create new file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/.kitchen.yml
+    - update content in file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/.kitchen.yml from none to 6c87ff
+    (diff output suppressed by config)
+  * directory[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/test/integration/default/serverspec] action create
+    - create new directory /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/test/integration/default/serverspec
+  * directory[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/test/integration/helpers/serverspec] action create
+    - create new directory /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/test/integration/helpers/serverspec
+  * cookbook_file[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/test/integration/helpers/serverspec/spec_helper.rb] action create_if_missing
+    - create new file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/test/integration/helpers/serverspec/spec_helper.rb
+    - update content in file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/test/integration/helpers/serverspec/spec_helper.rb from none to a226b8
+    (diff output suppressed by config)
+  * template[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/test/integration/default/serverspec/default_spec.rb] action create_if_missing
+    - create new file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/test/integration/default/serverspec/default_spec.rb
+    - update content in file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/test/integration/default/serverspec/default_spec.rb from none to 0a1629
+    (diff output suppressed by config)
+  * template[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/README.md] action create
+    - create new file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/README.md
+    - update content in file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/README.md from none to 33b9e3
+    (diff output suppressed by config)
+  * directory[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks] action create
+    - create new directory /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks
+  * directory[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar] action create
+    - create new directory /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar
+  * template[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar/metadata.rb] action create
+    - create new file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar/metadata.rb
+    - update content in file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar/metadata.rb from none to 5e10b1
+    (diff output suppressed by config)
+  * cookbook_file[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar/chefignore] action create
+    - create new file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar/chefignore
+    - update content in file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar/chefignore from none to e394e1
+    (diff output suppressed by config)
+  * cookbook_file[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar/Berksfile] action create
+    - create new file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar/Berksfile
+    - update content in file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar/Berksfile from none to 5ec92e
+    (diff output suppressed by config)
+  * directory[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar/recipes] action create
+    - create new directory /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar/recipes
+  * template[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar/recipes/default.rb] action create
+    - create new file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar/recipes/default.rb
+    - update content in file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar/recipes/default.rb from none to 86ab33
+    (diff output suppressed by config)
+  * directory[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar/spec/unit/recipes] action create
+    - create new directory /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar/spec/unit/recipes
+  * cookbook_file[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar/spec/spec_helper.rb] action create_if_missing
+    - create new file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar/spec/spec_helper.rb
+    - update content in file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar/spec/spec_helper.rb from none to 945e09
+    (diff output suppressed by config)
+  * template[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar/spec/unit/recipes/default_spec.rb] action create_if_missing
+    - create new file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar/spec/unit/recipes/default_spec.rb
+    - update content in file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/aar/spec/unit/recipes/default_spec.rb from none to d0e68b
+    (diff output suppressed by config)
+  * execute[initialize-git] action run
+    - execute git init .
+  * cookbook_file[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/.gitignore] action create
+    - create new file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/.gitignore
+    - update content in file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/.gitignore from none to dd37b2
+    (diff output suppressed by config)
++ git add .
++ git commit -m 'Add app'
+[master (root-commit) b856004] Add app
+ 11 files changed, 197 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 .kitchen.yml
+ create mode 100644 README.md
+ create mode 100644 cookbooks/aar/Berksfile
+ create mode 100644 cookbooks/aar/chefignore
+ create mode 100644 cookbooks/aar/metadata.rb
+ create mode 100644 cookbooks/aar/recipes/default.rb
+ create mode 100644 cookbooks/aar/spec/spec_helper.rb
+ create mode 100644 cookbooks/aar/spec/unit/recipes/default_spec.rb
+ create mode 100644 test/integration/default/serverspec/default_spec.rb
+ create mode 100644 test/integration/helpers/serverspec/spec_helper.rb
++ cd /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar
++ rm -rf .chef
++ mkdir -p .chef
++ chef generate cookbook cookbooks/motd_rhel
+Installing Cookbook Gems:
+Compiling Cookbooks...
+Recipe: code_generator::cookbook
+  * directory[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel] action create
+    - create new directory /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel
+  * template[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/metadata.rb] action create_if_missing
+    - create new file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/metadata.rb
+    - update content in file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/metadata.rb from none to f508a9
+    (diff output suppressed by config)
+  * template[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/README.md] action create_if_missing
+    - create new file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/README.md
+    - update content in file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/README.md from none to 219821
+    (diff output suppressed by config)
+  * cookbook_file[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/chefignore] action create
+    - create new file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/chefignore
+    - update content in file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/chefignore from none to e394e1
+    (diff output suppressed by config)
+  * cookbook_file[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/Berksfile] action create_if_missing
+    - create new file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/Berksfile
+    - update content in file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/Berksfile from none to 5ec92e
+    (diff output suppressed by config)
+  * template[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/.kitchen.yml] action create_if_missing
+    - create new file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/.kitchen.yml
+    - update content in file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/.kitchen.yml from none to 8bc0be
+    (diff output suppressed by config)
+  * directory[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/test/integration/default/serverspec] action create
+    - create new directory /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/test/integration/default/serverspec
+  * directory[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/test/integration/helpers/serverspec] action create
+    - create new directory /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/test/integration/helpers/serverspec
+  * cookbook_file[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/test/integration/helpers/serverspec/spec_helper.rb] action create_if_missing
+    - create new file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/test/integration/helpers/serverspec/spec_helper.rb
+    - update content in file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/test/integration/helpers/serverspec/spec_helper.rb from none to a226b8
+    (diff output suppressed by config)
+  * template[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/test/integration/default/serverspec/default_spec.rb] action create_if_missing
+    - create new file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/test/integration/default/serverspec/default_spec.rb
+    - update content in file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/test/integration/default/serverspec/default_spec.rb from none to 0ce5f4
+    (diff output suppressed by config)
+  * directory[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/spec/unit/recipes] action create
+    - create new directory /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/spec/unit/recipes
+  * cookbook_file[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/spec/spec_helper.rb] action create_if_missing
+    - create new file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/spec/spec_helper.rb
+    - update content in file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/spec/spec_helper.rb from none to 945e09
+    (diff output suppressed by config)
+  * template[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/spec/unit/recipes/default_spec.rb] action create_if_missing
+    - create new file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/spec/unit/recipes/default_spec.rb
+    - update content in file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/spec/unit/recipes/default_spec.rb from none to 57d35d
+    (diff output suppressed by config)
+  * directory[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/recipes] action create
+    - create new directory /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/recipes
+  * template[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/recipes/default.rb] action create_if_missing
+    - create new file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/recipes/default.rb
+    - update content in file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/recipes/default.rb from none to 81d5b3
+    (diff output suppressed by config)
+  * cookbook_file[/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/.gitignore] action create
+    - create new file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/.gitignore
+    - update content in file /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel/.gitignore from none to dd37b2
+    (diff output suppressed by config)
++ chef generate template cookbooks/motd_rhel server-info
+Installing Cookbook Gems:
+Compiling Cookbooks...
+Recipe: code_generator::template
+  * directory[cookbooks/motd_rhel/templates/default] action create
+    - create new directory cookbooks/motd_rhel/templates/default
+  * template[cookbooks/motd_rhel/templates/default/server-info.erb] action create
+    - create new file cookbooks/motd_rhel/templates/default/server-info.erb
+    - update content in file cookbooks/motd_rhel/templates/default/server-info.erb from none to e3b0c4
+    (diff output suppressed by config)
++ cat
++ cp /Users/demo/Downloads/mtm1.pem /Users/demo/Downloads/streambox-validator.pem /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/.chef
++ cd /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/
++ set +e
++ knife node delete myserver -y
+Deleted node[myserver]
++ knife client delete myserver -y
+Deleted client[myserver]
++ set -e
++ cd /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/cookbooks/motd_rhel
++ cat
++ cat
++ cat
++ git add VagrantAdditionalConfig.rb
++ cat
++ git add --force .kitchen.local.yml
++ git commit -a -m 'Add .kitchen.local.yml'
+[master a3abad6] Add .kitchen.local.yml
+ 2 files changed, 50 insertions(+)
+ create mode 100644 cookbooks/motd_rhel/.kitchen.local.yml
+ create mode 100644 cookbooks/motd_rhel/VagrantAdditionalConfig.rb
++ cat
++ git add .kitchen.yml
++ git commit -a -m 'updated .kitchen.yml'
+[master d79544c] updated .kitchen.yml
+ 1 file changed, 26 insertions(+)
+ create mode 100644 cookbooks/motd_rhel/.kitchen.yml
++ cd /Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar
++ knife cookbook upload motd_rhel
+Uploading motd_rhel      [0.1.0]
+Uploaded 1 cookbook.
+-----> Starting Kitchen (v1.8.0)
+-----> Creating <default-ubuntu-1404>...
+       Bringing machine 'default' up with 'virtualbox' provider...
+       ==> default: Importing base box 'bento/ubuntu-14.04'...
+==> default: Matching MAC address for NAT networking...
+       ==> default: Checking if box 'bento/ubuntu-14.04' is up to date...
+       ==> default: Setting the name of the VM: kitchen-motd_rhel-default-ubuntu-1404_default_1465321427380_90458
+       ==> default: Clearing any previously set network interfaces...
+       ==> default: Preparing network interfaces based on configuration...
+           default: Adapter 1: nat
+       ==> default: Forwarding ports...
+           default: 22 (guest) => 2222 (host) (adapter 1)
+       ==> default: Booting VM...
+       ==> default: Waiting for machine to boot. This may take a few minutes...
+           default: SSH address: 127.0.0.1:2222
+           default: SSH username: vagrant
+           default: SSH auth method: private key
+           default: Warning: Remote connection disconnect. Retrying...
+           default: 
+           default: Vagrant insecure key detected. Vagrant will automatically replace
+           default: this with a newly generated keypair for better security.
+           default: 
+           default: Inserting generated public key within guest...
+           default: Removing insecure key from the guest if it's present...
+           default: Key inserted! Disconnecting and reconnecting using new SSH key...
+       ==> default: Machine booted and ready!
+       ==> default: Checking for guest additions in VM...
+       ==> default: Setting hostname...
+       ==> default: Mounting shared folders...
+           default: /tmp/vagrant-cache => /Users/demo/.vagrant.d/cache/bento/ubuntu-14.04
+       ==> default: Configuring cache buckets...
+       ==> default: Skipping Pacman cache bucket as the guest machine does not support it
+       ==> default: Skipping Yum cache bucket as the guest machine does not support it
+       ==> default: Machine not provisioned because `--no-provision` is specified.
+       [SSH] Established
+       Vagrant instance <default-ubuntu-1404> created.
+       Finished creating <default-ubuntu-1404> (0m28.73s).
+-----> Converging <default-ubuntu-1404>...
+       Preparing files for transfer
+       Preparing dna.json
+       Resolving cookbook dependencies with Berkshelf 4.3.3...
+       Removing non-cookbook files before transfer
+       Preparing validation.pem
+       Preparing client.rb
+-----> Installing Chef Omnibus (12.10.24)
+       Downloading https://www.chef.io/chef/install.sh to file /tmp/install.sh
+       Trying wget...
+       Download complete.
+       ubuntu 14.04 x86_64
+       Getting information for chef stable 12.10.24 for ubuntu...
+       downloading https://omnitruck-direct.chef.io/stable/chef/metadata?v=12.10.24&p=ubuntu&pv=14.04&m=x86_64
+         to file /tmp/install.sh.1692/metadata.txt
+       trying wget...
+       sha1	7d30b300f95f00036919ee8bf3b95ab73429e57e
+       sha256	663d6c42c90bbb9463bc02a7c5d777f7aa6ebd52c071a0c1963bc8c4db76dea2
+       url	https://packages.chef.io/stable/ubuntu/14.04/chef_12.10.24-1_amd64.deb
+       version	12.10.24
+       downloaded metadata file looks valid...
+       /tmp/vagrant-cache/vagrant_omnibus/chef_12.10.24-1_amd64.deb already exists, verifiying checksum...
+       Comparing checksum with sha256sum...
+       checksum compare succeeded, using existing file!
+       Installing chef 12.10.24
+       installing with dpkg...
+       Selecting previously unselected package chef.
+(Reading database ... 32948 files and directories currently installed.)
+       Preparing to unpack .../chef_12.10.24-1_amd64.deb ...
+       Unpacking chef (12.10.24-1) ...
+       Setting up chef (12.10.24-1) ...
+       Thank you for installing Chef!
+       Transferring files to <default-ubuntu-1404>
+       Starting Chef Client, version 12.10.24
+       Creating a new client identity for default-ubuntu-1404 using the validator key.
+       resolving cookbooks for run list: []
+       Synchronizing Cookbooks:
+       Installing Cookbook Gems:
+       Compiling Cookbooks...
+       [2016-06-07T17:44:15+00:00] WARN: Node default-ubuntu-1404 has an empty run list.
+       Converging 0 resources
+       
+       Running handlers:
+       Running handlers complete
+       Chef Client finished, 0/0 resources updated in 01 seconds
+       Finished converging <default-ubuntu-1404> (0m9.78s).
+-----> Kitchen is finished. (0m39.01s)
+find . -iname vagrantfile | grep \.kitchen | xargs -I{} cp -v {} ./aar/cookbooks/motd_rhel/
+./aar/cookbooks/motd_rhel/.kitchen/kitchen-vagrant/kitchen-motd_rhel-default-ubuntu-1404/Vagrantfile -> ./aar/cookbooks/motd_rhel/Vagrantfile
+(cd ./aar/cookbooks/motd_rhel && \
+		kitchen destroy all && \
+		vagrant up)
+-----> Starting Kitchen (v1.8.0)
+-----> Destroying <default-ubuntu-1204>...
+       Finished destroying <default-ubuntu-1204> (0m0.00s).
+-----> Destroying <default-ubuntu-1404>...
+       ==> default: Running cleanup tasks for 'chef_client' provisioner...
+       ==> default: Deleting node "myserver" from Chef server...
+       ==> default: There were errors removing the node from the Chef Server:
+       ==> default: 
+       ==> default: stdin: is not a tty
+       ==> default: 
+       ==> default: ERROR: CONFIGURATION ERROR:Specified config file /tmp/vagrant-chef/client.rb does not exist
+       ==> default: 
+       ==> default: Vagrant will continue destroying the virtual machine, but you may need
+       ==> default: to manually delete the node from the Chef Server!
+       ==> default: Deleting client "myserver" from Chef server...
+       ==> default: There were errors removing the client from the Chef Server:
+       ==> default: 
+       ==> default: stdin: is not a tty
+       ==> default: 
+       ==> default: ERROR: CONFIGURATION ERROR:Specified config file /tmp/vagrant-chef/client.rb does not exist
+       ==> default: 
+       ==> default: Vagrant will continue destroying the virtual machine, but you may need
+       ==> default: to manually delete the client from the Chef Server!
+       ==> default: Forcing shutdown of VM...
+       ==> default: Destroying VM and associated drives...
+       Vagrant instance <default-ubuntu-1404> destroyed.
+       Finished destroying <default-ubuntu-1404> (0m5.14s).
+-----> Destroying <default-centos-511>...
+       Finished destroying <default-centos-511> (0m0.00s).
+-----> Destroying <default-centos-67>...
+       Finished destroying <default-centos-67> (0m0.00s).
+-----> Destroying <default-centos-72>...
+       Finished destroying <default-centos-72> (0m0.00s).
+-----> Destroying <default-debian-79>...
+       Finished destroying <default-debian-79> (0m0.00s).
+-----> Destroying <default-debian-83>...
+       Finished destroying <default-debian-83> (0m0.00s).
+-----> Kitchen is finished. (0m5.65s)
+Bringing machine 'default' up with 'virtualbox' provider...
+==> default: Importing base box 'bento/ubuntu-14.04'...
+==> default: Matching MAC address for NAT networking...
+==> default: Checking if box 'bento/ubuntu-14.04' is up to date...
+==> default: Setting the name of the VM: motd_rhel_default_1465321471964_56043
+==> default: Clearing any previously set network interfaces...
+==> default: Preparing network interfaces based on configuration...
+    default: Adapter 1: nat
+==> default: Forwarding ports...
+    default: 22 (guest) => 2222 (host) (adapter 1)
+==> default: Booting VM...
+==> default: Waiting for machine to boot. This may take a few minutes...
+    default: SSH address: 127.0.0.1:2222
+    default: SSH username: vagrant
+    default: SSH auth method: private key
+    default: Warning: Remote connection disconnect. Retrying...
+    default: 
+    default: Vagrant insecure key detected. Vagrant will automatically replace
+    default: this with a newly generated keypair for better security.
+    default: 
+    default: Inserting generated public key within guest...
+    default: Removing insecure key from the guest if it's present...
+    default: Key inserted! Disconnecting and reconnecting using new SSH key...
+==> default: Machine booted and ready!
+==> default: Checking for guest additions in VM...
+==> default: Setting hostname...
+==> default: Mounting shared folders...
+    default: /tmp/vagrant-cache => /Users/demo/.vagrant.d/cache/bento/ubuntu-14.04
+==> default: Installing Chef 12.10.24 Omnibus package...
+==> default: ubuntu 14.04 x86_64
+==> default: Getting information for chef stable 12.10.24 for ubuntu...
+==> default: downloading https://omnitruck-direct.chef.io/stable/chef/metadata?v=12.10.24&p=ubuntu&pv=14.04&m=x86_64
+==> default:   to file /tmp/install.sh.1430/metadata.txt
+==> default: trying wget...
+==> default: sha1	7d30b300f95f00036919ee8bf3b95ab73429e57e
+==> default: sha256	663d6c42c90bbb9463bc02a7c5d777f7aa6ebd52c071a0c1963bc8c4db76dea2
+==> default: url	https://packages.chef.io/stable/ubuntu/14.04/chef_12.10.24-1_amd64.deb
+==> default: version	12.10.24
+
+==> default: downloaded metadata file looks valid...
+==> default: /tmp/vagrant-cache/vagrant_omnibus/chef_12.10.24-1_amd64.deb already exists, verifiying checksum...
+==> default: Comparing checksum with sha256sum...
+==> default: checksum compare succeeded, using existing file!
+==> default: Installing chef 12.10.24
+==> default: installing with dpkg...
+==> default: Selecting previously unselected package chef.
+==> default: (Reading database ... 32948 files and directories currently installed.)
+==> default: Preparing to unpack .../chef_12.10.24-1_amd64.deb ...
+==> default: Unpacking chef (12.10.24-1) ...
+==> default: Setting up chef (12.10.24-1) ...
+==> default: Thank you for installing Chef!
+==> default: Configuring cache buckets...
+==> default: Skipping Pacman cache bucket as the guest machine does not support it
+==> default: Skipping Yum cache bucket as the guest machine does not support it
+==> default: Running provisioner: chef_client...
+==> default: Detected Chef (latest) is already installed
+==> default: Creating folder to hold client key...
+==> default: Uploading chef client validation key...
+==> default: Generating chef JSON and uploading...
+==> default: Running chef-client...
+==> default: stdin: is not a tty
+==> default: [2016-06-07T17:45:03+00:00] INFO: Forking chef instance to converge...
+==> default: Starting Chef Client, version 12.10.24
+==> default: [2016-06-07T17:45:03+00:00] INFO: *** Chef 12.10.24 ***
+==> default: [2016-06-07T17:45:03+00:00] INFO: Platform: x86_64-linux
+==> default: [2016-06-07T17:45:03+00:00] INFO: Chef-client pid: 1861
+==> default: Creating a new client identity for myserver using the validator key.
+==> default: [2016-06-07T17:45:04+00:00] INFO: Client key /etc/chef/client.pem is not present - registering
+==> default: [2016-06-07T17:45:05+00:00] INFO: HTTP Request Returned 404 Object Not Found: error
+==> default: [2016-06-07T17:45:06+00:00] INFO: Setting the run_list to ["recipe[motd_rhel]"] from CLI options
+==> default: [2016-06-07T17:45:06+00:00] INFO: Run List is [recipe[motd_rhel]]
+==> default: [2016-06-07T17:45:06+00:00] INFO: Run List expands to [motd_rhel]
+==> default: [2016-06-07T17:45:06+00:00] INFO: Starting Chef Run for myserver
+==> default: [2016-06-07T17:45:06+00:00] INFO: Running start handlers
+==> default: [2016-06-07T17:45:06+00:00] INFO: Start handlers complete.
+==> default: resolving cookbooks for run list: ["motd_rhel"]
+==> default: [2016-06-07T17:45:07+00:00] INFO: Loading cookbooks [motd_rhel@0.1.0]
+==> default: Synchronizing Cookbooks:
+==> default: [2016-06-07T17:45:08+00:00] INFO: Storing updated cookbooks/motd_rhel/VagrantAdditionalConfig.rb in the cache.
+==> default:   
+==> default: - motd_rhel (0.1.0)
+==> default: Installing Cookbook Gems:
+==> default: Compiling Cookbooks...
+==> default: Converging 1 resources
+==> default: Recipe: motd_rhel::default
+==> default:   
+==> default: * template[/etc/motd] action create
+==> default: [2016-06-07T17:45:08+00:00] INFO: template[/etc/motd] created file /etc/motd
+==> default:     
+==> default: - create new file /etc/motd
+==> default: [2016-06-07T17:45:08+00:00] INFO: template[/etc/motd] updated file contents /etc/motd
+==> default:     
+==> default: - update content in file /etc/motd from none to a21096
+==> default:     
+==> default: --- /etc/motd	2016-06-07 17:45:08.103957186 +0000
+==> default:     
+==> default: +++ /etc/.chef-motd20160607-1861-12yltdk	2016-06-07 17:45:08.103957186 +0000
+==> default:     
+==> default: @@ -1 +1,5 @@
+==> default:     
+==> default: +hostname:  myserver
+==> default:     
+==> default: +fqdn:      myserver
+==> default:     
+==> default: +memory:    501696kB
+==> default:     
+==> default: +cpu count: 1
+==> default: [2016-06-07T17:45:08+00:00] INFO: template[/etc/motd] mode changed to 644
+==> default:     
+==> default: - change mode from '' to '0644'
+==> default: 
+==> default: 
+==> default: [2016-06-07T17:45:08+00:00] INFO: Chef Run complete in 2.618617428 seconds
+==> default: 
+==> default: Running handlers:
+==> default: [2016-06-07T17:45:08+00:00] INFO: Running report handlers
+==> default: Running handlers complete
+==> default: 
+==> default: [2016-06-07T17:45:08+00:00] INFO: Report handlers complete
+==> default: Chef Client finished, 1/1 resources updated in 05 seconds
+==> default: [2016-06-07T17:45:08+00:00] INFO: Sending resource update report (run-id: 52665556-6e0f-489a-b20b-9f34f98e9b23)
+==> default: Configuring cache buckets...
+==> default: Skipping Pacman cache bucket as the guest machine does not support it
+==> default: Skipping Yum cache bucket as the guest machine does not support it
+[demo@demos-MacBook-Pro:~/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server(tm/opscode_provision_vagrant)]$ 
+#+END_SRC
