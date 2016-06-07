@@ -199,7 +199,6 @@ driver:
 
 provisioner:
   name: chef_solo
-
   require_chef_omnibus: 12.10.24
 
 platforms:
