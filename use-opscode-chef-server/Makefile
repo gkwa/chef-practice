@@ -7,8 +7,6 @@ ubuntu1:
 		vagrant up)
 # vagrant ssh --command 'sudo chef-client -c /tmp/vagrant-chef/client.rb -o motd_rhel'
 # https://manage.chef.io/organizations/streambox/cookbooks
-	knife node run_list add myserver 'recipe[motd_rhel]'
-	cd ./aar/cookbooks/motd_rhel && vagrant provision
 
 ubuntu:
 	sh -x run.sh && (cd aar/cookbooks/motd_rhel && kitchen converge -p ubuntu-1404)

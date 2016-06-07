@@ -119,6 +119,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.validation_client_name = "streambox-validator"
     chef.node_name = "myserver"
 
+    chef.add_recipe "motd_rhel"
     # https://www.vagrantup.com/docs/provisioning/chef_common.html
     # not working as expected.  Does bento/ubuntu-14.04 already have
     # chef client installed?  If so, then chef.version = "latest" should leave
