@@ -10,6 +10,9 @@ freebsd:
 all:
 	sh -x run.sh && (cd aar && kitchen converge -p)
 
+clean:
+	rm -rf aar
+
 t: template
 template:
 	sh -x run.sh

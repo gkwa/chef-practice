@@ -158,13 +158,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.cache.enable :gem
   end
 
-  node.vm.provision :chef_client do |chef|
-    chef.provisioning_path = "/etc/chef"
+  current_dir = File.dirname(__FILE__)
+  config.vm.provision "chef_client" do |chef|
     chef.chef_server_url = "https://api.opscode.com/organizations/streambox"
-    chef.validation_key_path = ".chef/streambox-validator.pem"
+    chef.validation_key_path = "#{current_dir}/.chef/streambox-validator.pem"
     chef.validation_client_name = "streambox-validator"
-    chef.node_name = node_name.to_s
-    chef.add_recipe the_recipe if the_recipe
   end
 
   # Don't keep reinstalling virtualbox guest additions, it takes too
