@@ -1,5 +1,5 @@
 ubuntu:
-	sh -x run.sh && (cd aar && kitchen converge -p ubuntu-1404)
+	sh -x run.sh && (cd aar/cookbooks/motd_rhel && kitchen converge -p ubuntu-1404)
 
 fedora:
 	sh -x run.sh && (cd aar && kitchen converge -p fedora-23)

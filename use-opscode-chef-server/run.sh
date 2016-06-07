@@ -38,11 +38,8 @@ rm -rf aar
 mkdir aar
 cd aar
 chef generate app .
-# Policyfiles will be the default someday, 'till then:
-chef generate policyfile
-
 git add .
-git commit -m 'initial policyfile demo commit'
+git commit -m "Add app"
 
 ##############################
 # setup for chef server
@@ -59,88 +56,28 @@ chef generate template cookbooks/motd_rhel server-info
 # https://learn.chef.io/local-development/rhel/get-started-with-test-kitchen/#writethedefaultrecipe
 cd cookbooks/motd_rhel
 # kitchen create
+cat <<'__EOT__' >recipes/default.rb
+template '/etc/motd' do
+  source 'server-info.erb'
+  mode '0644'
+end
+__EOT__
 
-# aar/cookbooks/motd_rhel
-cd $root/aar
+cat <<'__EOT__' >templates/default/server-info.erb
+hostname:  <%= node['hostname'] %>
+fqdn:      <%= node['fqdn'] %>
+memory:    <%= node['memory']['total'] %>
+cpu count: <%= node['cpu']['total'] %>
+__EOT__
 
 # upload cookbook to server
 knife cookbook upload motd_rhel
 
 # check its uploaded
 # https://manage.chef.io/organizations/streambox/cookbooks
-
 knife node run_list add myserver 'recipe[motd_rhel]'
-##############################
-
-cat <<'__EOT__' >>cookbooks/aar/metadata.rb
-depends "chef-client"
-depends "apt"
-depends "ntp"
-depends "users"
-__EOT__
-
-cat <<'__EOT__' >>cookbooks/aar/recipes/default.rb
-include_recipe "chef-client"
-include_recipe "apt"
-include_recipe "ntp"
-include_recipe "users"
-
-users_manage 'testgroup' do
-  group_id 3000
-  action [:create]
-  data_bag 'test_home_dir'
-end
-__EOT__
 
 ##############################
-
-# policyfile
-
-cat <<'__EOT__' >Policyfile.rb
-# Policyfile.rb - Describe how you want Chef to build your system.
-#
-# For more information on the Policyfile feature, visit
-# https://github.com/opscode/chef-dk/blob/master/POLICYFILE_README.md
-
-# A name that describes what the system you're building with Chef does.
-name "aar"
-
-# Where to find external cookbooks:
-default_source :community
-
-# run_list: chef-client will run these recipes in the order specified.
-run_list "aar::default"
-
-# Specify a custom source for a single cookbook:
-cookbook "aar", path: "cookbooks/aar"
-
-__EOT__
-
-##############################
-knife cookbook create irc -o cookbooks
-
-cat <<'__EOT__' >>cookbooks/irc/recipes/default.rb
-user 'tdi' do
-	action :create
-	comment "Test Driven Infrastructure"
-	home "/home/tdi"
-	manage_home true
-end
-__EOT__
-
-cat <<'__EOT__' >>Policyfile.rb
-# run_list: chef-client will run these recipes in the order specified.
-run_list "irc::default"
-
-# Specify a custom source for a single cookbook:
-cookbook "irc", path: "cookbooks/irc"
-__EOT__
-##############################
-
-chef install
-
-git add Policyfile.lock.json
-git commit -a -m 'updated Policyfile and created lock'
 
 cat <<'__EOT__' >VagrantAdditionalConfig.rb
 VAGRANTFILE_API_VERSION = "2"
@@ -160,8 +97,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   current_dir = File.dirname(__FILE__)
   config.vm.provision "chef_client" do |chef|
-    chef.chef_server_url = "https://api.opscode.com/organizations/streambox"
-    chef.validation_key_path = "#{current_dir}/.chef/streambox-validator.pem"
+    chef.chef_server_url = "https://api.opscode.com/organizations/streambox1"
+#    chef.validation_key_path = "#{current_dir}/.chef/streambox-validator.pem"
+    chef.validation_key_path = "/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/.chef/streambox-validator.pem"
     chef.validation_client_name = "streambox-validator"
   end
 
@@ -179,6 +117,7 @@ end
 __EOT__
 git add VagrantAdditionalConfig.rb
 
+##############################
 
 cat <<'__EOT__' >.kitchen.local.yml
 ---
@@ -187,6 +126,8 @@ provisioner:
 __EOT__
 git add --force .kitchen.local.yml
 git commit -a -m 'Add .kitchen.local.yml'
+
+##############################
 
 cat <<'__EOT__' >.kitchen.yml
 ---
@@ -216,12 +157,11 @@ platforms:
 
 suites:
   - name: default
-    attributes:
+    run_list:
+      - recipe[motd_rhel::default]
 __EOT__
 
-
-
-
+##############################
 git add .kitchen.yml
 git commit -a -m 'updated .kitchen.yml'
 # kitchen converge centos -p
