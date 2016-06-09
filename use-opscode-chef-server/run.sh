@@ -1,3 +1,5 @@
+#!/bin/bash
+
 : <<COMMENTBLOCK
 Script combines many ideas mostly with the goal to lear test-kitchen to
 test cookbooks.
@@ -8,6 +10,7 @@ https://github.com/test-kitchen/kitchen-vagrant
 
 https://learn.chef.io/local-development/rhel/get-started-with-test-kitchen/
 https://manage.chef.io/organizations/streambox/users/mtm1
+
 https://manage.chef.io/organizations/streambox
 
 COMMENTBLOCK
@@ -56,17 +59,61 @@ chef generate template cookbooks/motd_rhel server-info
 
 # cp ~/Downloads/knife.rb .chef
 cat <<'__EOT__' >$root/aar/.chef/knife.rb
+
 # See http://docs.chef.io/config_rb_knife.html for more information on knife configuration options
+
 current_dir = File.dirname(__FILE__)
+home_dir    = ENV['HOME'] || ENV['HOMEDRIVE']
+
 log_level                :info
 log_location             STDOUT
 node_name                "mtm1"
-client_key               "#{current_dir}/mtm1.pem"
+client_key               "#{home_dir}/.chef/#{node_name}.pem"
 validation_client_name   "streambox-validator"
-validation_key           "#{current_dir}/streambox-validator.pem"
+validation_key           "#{home_dir}/.chef/#{validation_client_name}.pem"
 chef_server_url          "https://api.chef.io/organizations/streambox"
 cookbook_path            ["#{current_dir}/../cookbooks"]
+
+# current_dir = File.dirname(__FILE__)
+
 __EOT__
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 cp ~/Downloads/mtm1.pem ~/Downloads/streambox-validator.pem $root/aar/.chef
@@ -112,10 +159,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   current_dir = File.dirname(__FILE__)
+  home_dir    = ENV['HOME'] || ENV['HOMEDRIVE']
+  validation_client_name = "streambox-validator"
   config.vm.provision "chef_client" do |chef|
     chef.chef_server_url = "https://api.opscode.com/organizations/streambox"
 #    chef.validation_key_path = "#{current_dir}/.chef/streambox-validator.pem"
-    chef.validation_key_path = "/Users/demo/pdev/TaylorMonacelli/chef-practice/use-opscode-chef-server/aar/.chef/streambox-validator.pem"
+    chef.validation_key_path = "#{home_dir}/.chef/#{validation_client_name}.pem"
     chef.validation_client_name = "streambox-validator"
     chef.node_name = "myserver"
 
