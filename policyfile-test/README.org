@@ -1,3 +1,5 @@
+* 
+
 * TODO Explore vagrant_erb
 
 https://github.com/mross462/Vagrantfile/blob/master/Vagrantfile
