@@ -1,10 +1,10 @@
 ubuntu1:
-	# just to generate Vagrantfile:
+# just to generate Vagrantfile first
 	./run.sh && (cd aar/cookbooks/motd_rhel && kitchen converge -p ubuntu-1404)
-	find . -iname vagrantfile | grep \.kitchen | xargs -I{} cp -v {} ./aar/cookbooks/motd_rhel/
-	(cd ./aar/cookbooks/motd_rhel && \
-		kitchen destroy all && \
-		vagrant up)
+	find . -name Vagrantfile | grep \.kitchen | xargs -I{} cp -v {} ./aar/cookbooks/motd_rhel/
+# destroy uninteresting old stuff
+	(cd ./aar/cookbooks/motd_rhel && kitchen destroy all)
+	(cd ./aar/cookbooks/motd_rhel && vagrant up)
 # vagrant ssh --command 'sudo chef-client -c /tmp/vagrant-chef/client.rb -o motd_rhel'
 # https://manage.chef.io/organizations/streambox/cookbooks
 
