@@ -1,0 +1,17 @@
+* Now I don't need to remember how to create a test kitchen enabled chef cookbook again
+
+I keep forgetting details on creating a test kitchen eanbled cookbook,
+so here's my generator
+
+#+BEGIN_SRC
+# Example: create cookbook nameed mycookbook in git reposotiry chef-repo
+make
+
+# or
+# Example: create cookbook named 'taylorunixhome'
+make repo=chef-repo cookbook=taylorunixhome
+
+# or
+# Example: create cookbook named test-cookbook in test repostory 'tr'
+make repo=tr cookbook=test-cookbook
+#+END_SRC
