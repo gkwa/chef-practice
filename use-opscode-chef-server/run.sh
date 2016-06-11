@@ -116,7 +116,7 @@ __EOT__
 
 
 
-cp ~/Downloads/mtm1.pem ~/Downloads/streambox-validator.pem $root/aar/.chef
+cp ~/.chef/mtm1.pem ~/.chef/streambox-validator.pem $root/aar/.chef
 cd $root/aar/
 
 set +e
