@@ -14,6 +14,28 @@ make
 make converge
 #+END_SRC
 
+** TODO don't add name: ubuntu-14.04 to .kitchen.yml if its already there
+
+Instead of this
+#+BEGIN_SRC
+ruby -r yaml -e "data = YAML.load_file '.kitchen.yml';x={'name'=>'ubuntu-14.04'};data['platforms'].push(x);File.open('.kitchen.yml', 'w') { |f| YAML.dump(data, f) }"
+#+END_SRC
+
+which creates this:
+#+BEGIN_SRC
+platforms:
+- name: ubuntu-14.04
+- name: centos-7.1
+- name: ubuntu-14.04
+#+END_SRC
+
+in
+#+BEGIN_SRC
+userstest/cookbooks/my_users/.kitchen.yml
+#+END_SRC
+
+maybe check values for pre-existing =ubuntu-14.04= and only add if not already there?
+
 ** DONE ../cookbook-template/generate.sh: line 25: ruby: command not found
    CLOSED: [2016-06-12 Sun 13:54]
 
