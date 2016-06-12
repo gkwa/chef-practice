@@ -14,6 +14,45 @@ make
 make converge
 #+END_SRC
 
+**
+
+Based off =~/.chef/knife.rb= which has
+#+BEGIN_SRC
+cookbook_path            ["#{current_dir}/../cookbooks"]
+
+#+END_SRC
+
+#+BEGIN_SRC
+knife cookbook site install users
+knife cookbook site install sudo
+
+#+END_SRC
+will put cookbooks in =~/cookbooks= folder after having done this
+#+BEGIN_SRC
+cd
+mkdir -p cookbooks
+cd cookbooks
+touch README.md
+git add -A
+git commit -am Initial
+
+#+END_SRC
+
+but later, when you do
+#+BEGIN_SRC
+knife cookbook upload --all
+
+#+END_SRC
+
+knife is smart about not uploading all of your =~/cookbooks= and instead
+it only uploads the cookbooks this cookbook depends on 'users' and
+'sudo' from =userstest/cookbooks/my_users/metadata.rb=:
+#+BEGIN_SRC
+depends 'users'
+depends 'sudo'
+
+#+END_SRC
+
 ** TODO don't add name: ubuntu-14.04 to .kitchen.yml if its already there
 
 Instead of this
