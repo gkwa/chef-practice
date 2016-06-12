@@ -9,9 +9,11 @@ cookbook=${2:-my_users}
 
 cd ${repo}
 
-knife cookbook site install users --cookbook-path cookbooks
-knife cookbook site install sudo --cookbook-path cookbooks
-knife cookbook upload --all --cookbook-path cookbooks
+mkdir -p ~/cookbooks # see ~/.chef/knife.rb
+
+knife cookbook site install users
+knife cookbook site install sudo
+knife cookbook upload --all
 
 mkdir -p data_bags/users
 knife data bag list |
@@ -110,4 +112,4 @@ git commit -am "Fails on ubuntu 16.04, so converge on ubuntu 14.04 instaed"
 git rebase --whitespace=fix HEAD~1
 )
 
-knife cookbook upload --cookbook-path cookbooks --all
+knife cookbook upload --all
