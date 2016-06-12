@@ -105,7 +105,7 @@ git rebase --whitespace=fix HEAD~1
 )
 
 (cd cookbooks/${cookbook}
-ruby -r yaml -e "data = YAML.load_file '.kitchen.yml';data['platforms'][0]['name']='ubuntu-14.04';File.open('.kitchen.yml', 'w') { |f| YAML.dump(data, f) }"
+ruby -r yaml -e "data = YAML.load_file '.kitchen.yml';x={'name'=>'ubuntu-14.04'};data['platforms'].push(x);File.open('.kitchen.yml', 'w') { |f| YAML.dump(data, f) }"
 git commit -am "Fails on ubuntu 16.04, so converge on ubuntu 14.04 instaed"
 git rebase --whitespace=fix HEAD~1
 )
