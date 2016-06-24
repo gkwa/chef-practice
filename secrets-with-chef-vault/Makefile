@@ -7,6 +7,7 @@ chef-vault-test2:
 	sh -x $@.sh 2>&1 | tee $@.out
 
 clean:
+	rm -f chef-vault-test.sh
 	rm -rf chef-vault-test
 	rm -rf chef-vault-test2
 	rm -f *.out
