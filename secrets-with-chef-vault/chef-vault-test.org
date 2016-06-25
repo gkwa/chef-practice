@@ -1,35 +1,39 @@
 #+babel: :tangle chef-vault-test.sh
+#+PROPERTY: mkdirp yes
+#+PROPERTY: header-args     :tangle (make-directory "chef-vault-test" ".")
+#+PROPERTY: header-args:sh  :mkdirp yes
 #+PROPERTY: header-args:sh+ :tangle yes
-#+PROPERTY: header-args:sh+ :dir (file-relative-name (file-name-sans-extension buffer-file-name))
-#+PROPERTY: header-args:sh+ :var repo=(file-relative-name (file-name-sans-extension buffer-file-name))
-#+PROPERTY: header-args:sh+ :results output silent
 
 https://github.com/chef/chef-vault/blob/master/THEORY.md
 
 * org-mode preable
 
-#+BEGIN_src sh :shebang "#!/bin/bash"
-# mkdir -p chef-vault-test
+#+BEGIN_src sh :shebang "#!/bin/bash" :session mys :results output replace :var repo=(file-relative-name (file-name-sans-extension buffer-file-name))
+cd /Users/demo/pdev/TaylorMonacelli/chef-practice/secrets-with-chef-vault
+echo $repo
 rm -rf $repo
 #+end_src
 
 #+RESULTS:
-
-* Check my chef version on my workstation/mbp
-
-#+BEGIN_src sh :results output
-chef -v &
-#+end_src
-
-#+RESULTS:
-: Chef Development Kit Version: 0.14.25
-: chef-client version: 12.10.24
-: berks version: 4.3.3
-: kitchen version: 1.8.0
+: 
+: > > [demo@demos-MacBook-Pro:~/pdev/TaylorMonacelli/chef-practice/secrets-with-chef-vault(master)]$ [demo@demos-MacBook-Pro:~/pdev/TaylorMonacelli/chef-practice/secrets-with-chef-vault(master)]$ chef-vault-test
 
 * Generate chef cookbook repository
 
-#+BEGIN_src sh
-chef generate repo $repo >/dev/null
-cd $repo
+#+BEGIN_src sh :session mys :results output silent
+echo $repo
+chef generate repo $repo
+pwd
 #+end_src
+
+* Generate chef cookbook repository
+
+#+BEGIN_src sh :session mys :results output replace
+cd $repo
+pwd
+#+end_src
+
+#+RESULTS:
+: 
+: /Users/demo/pdev/TaylorMonacelli/chef-practice/secrets-with-chef-vault/chef-vault-test
+
