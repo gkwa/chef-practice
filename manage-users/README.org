@@ -14,12 +14,11 @@ make
 make converge
 #+END_SRC
 
-**
+** knife cookbook site install users
 
 Based off =~/.chef/knife.rb= which has
 #+BEGIN_SRC
 cookbook_path            ["#{current_dir}/../cookbooks"]
-
 #+END_SRC
 
 #+BEGIN_SRC
@@ -73,7 +72,8 @@ in
 userstest/cookbooks/my_users/.kitchen.yml
 #+END_SRC
 
-maybe check values for pre-existing =ubuntu-14.04= and only add if not already there?
+maybe check values for pre-existing =ubuntu-14.04= and only add if not
+already there?
 
 ** DONE ../cookbook-template/generate.sh: line 25: ruby: command not found
    CLOSED: [2016-06-12 Sun 13:54]
