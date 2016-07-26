@@ -86,7 +86,7 @@ cd $root
 #   Assign a remote upload repository for just cookbook
 cd $repo_name/cookbooks/$cookbook_name
 git init
-git remote add origin git@gitlab.com':'taylormonacelli/$cookbook_name
+git remote add origin git@gitlab.com':'mtm/$cookbook_name
 git add -A
 git commit -am "Initial cookbook $cookbook_name"
 
@@ -94,4 +94,4 @@ cd $root
 
 #   Assign a remote upload repository for repo
 cd $repo_name
-git remote add origin git@gitlab.com':'taylormonacelli/$repo_name
+git remote add origin git@gitlab.com':'mtm/$repo_name
