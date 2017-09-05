@@ -26,12 +26,6 @@ resource "aws_instance" "chef" {
     Name = "chef"
   }
 
-  connection {
-    agent = false
-    user = "ubuntu"
-    key_file = "~/.ssh/ephemeral-test.pem"
-  }
-
   provisioner "file" {
     source = "script.sh"
     destination = "/tmp/script.sh"
