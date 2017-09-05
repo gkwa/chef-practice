@@ -7,8 +7,9 @@
 + replace =key_name = "ephemeral-test"= with your key name
 + run terraform
 #+BEGIN_SRC
-terraform destroy -force -var-file=secrets.tfvars
-time terraform apply -var-file=secrets.tfvars
+terraform plan -var-file=~/.ssh/terraform.tfvars
+terraform destroy -force ~/.ssh/terraform.tfvars
+time terraform apply -var-file=~/.ssh/terraform.tfvars
 #+END_SRC
 + continue here manually
 https://docs.chef.io/release/server_12-2/install_server.html#standalone
