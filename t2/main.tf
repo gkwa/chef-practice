@@ -25,42 +25,6 @@ resource "aws_instance" "chef" {
   tags {
     Name = "chef"
   }
-
-  provisioner "file" {
-    source = "script.sh"
-    destination = "/tmp/script.sh"
-  }
-
-  provisioner "file" {
-    source = "sethosts.sh"
-    destination = "/tmp/sethosts.sh"
-  }
-
-  provisioner "file" {
-    source = "sethostname.sh"
-    destination = "/tmp/sethostname.sh"
-  }
-
-  provisioner "file" {
-    source = "installemacs.sh"
-    destination = "/tmp/installemacs.sh"
-  }
-
-  provisioner "file" {
-    source = "s1.sh"
-    destination = "/tmp/s1.sh"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "sudo cp -R /home/ubuntu/.ssh /root" # enables ssh root@chef
-      ,"sudo sh /tmp/sethostname.sh"
-      ,"sudo sh /tmp/sethosts.sh"
-      ,"sudo service hostname restart"
-      ,"sudo nohup sh -x /tmp/s1.sh &"
-      ,"sleep 3" # without this, the nohup doesn't always run (not sure why)
-  ]
-  }
 }
 
 resource "aws_security_group" "chef" {
