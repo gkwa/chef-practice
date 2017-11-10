@@ -225,7 +225,6 @@ key_name = "ephemeral-test"
 Can we doit thgouh terraform or other?
 
 
-
 resource "aws_instance" "chef" {
   ami = "${lookup(var.amis, var.region)}"
   instance_type = "t1.micro"
