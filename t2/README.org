@@ -28,7 +28,7 @@ terraform apply -var-file=secrets.tfvars
 terraform destroy -var-file=secrets.tfvars
 #+END_SRC
 
-*
+* 
 ** quickly check whether dns record was added
 
 We have multiple zones with same name, so use zone id instead of name.
