@@ -11,6 +11,6 @@ variable "streambox_zone" {
 
 variable "amis" {
   default = {
-	us-west-2 = "ami-5189a661"
+	us-west-2 = "ami-6e1a0117"
   }
 }
