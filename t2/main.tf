@@ -19,7 +19,7 @@ resource "aws_instance" "chef" {
   security_groups = ["${aws_security_group.chef.name}"]
   monitoring = true
   root_block_device {
-    volume_size = "100"
+    volume_size = "200"
   }
 
   tags {
